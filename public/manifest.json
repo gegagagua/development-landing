@@ -1,0 +1,12 @@
+{
+  "name": "Piazza Residence — MOVE Development",
+  "short_name": "Piazza Residence",
+  "description": "პრემიუმ საცხოვრებელი კომპლექსი ბათუმის ისტორიულ ცენტრში — Piazza Residence, MOVE Development.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "orientation": "portrait-primary",
+  "background_color": "#f5f4f3",
+  "theme_color": "#0f1322",
+  "lang": "ka"
+}

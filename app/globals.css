@@ -236,12 +236,26 @@ body{font-family:'BPG',sans-serif;-webkit-font-smoothing:antialiased;background:
 .con-col{padding:64px 52px;background:#f5f4f3}
 .con-h2{font-family:'BPG',sans-serif;font-size:32px;font-weight:normal;letter-spacing:0.04em;text-transform:uppercase;color:#0f1322;margin-bottom:32px}
 .con-form{display:flex;flex-direction:column;gap:12px}
+.con-field-wrap{display:flex;flex-direction:column;gap:4px}
+.con-field-msg{margin:0;font-family:'BPG',sans-serif;font-size:10px;letter-spacing:0.03em;line-height:1.45;color:#b91c1c}
 .con-form input,.con-form textarea{width:100%;background:#fff;border:1px solid rgba(15,19,34,0.15);padding:14px 16px;font-family:'BPG',sans-serif;font-size:11px;letter-spacing:0.04em;color:#0f1322;outline:none;transition:border-color 0.2s}
 .con-form input::placeholder,.con-form textarea::placeholder{color:rgba(15,19,34,0.38)}
 .con-form input:focus,.con-form textarea:focus{border-color:rgba(15,19,34,0.5)}
+.con-form input.con-field--err,.con-form textarea.con-field--err{
+  border:2px solid #b91c1c;
+  background-color:rgba(254,226,226,0.32);
+}
+.con-form input.con-field--err:focus,.con-form textarea.con-field--err:focus{
+  border-color:#991b1b;
+  outline:none;
+}
 .con-form textarea{height:120px;resize:none}
 .con-btn{width:100%;padding:16px;background:#0f1322;color:#f5f4f3;border:none;font-family:'BPG',sans-serif;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;cursor:pointer;transition:background 0.2s;margin-top:4px}
 .con-btn:hover{background:#1e2d43}
+.con-btn:disabled{opacity:0.55;cursor:not-allowed}
+.con-form-msg{font-size:11px;letter-spacing:0.04em;line-height:1.5;margin-top:4px;font-family:'BPG',sans-serif}
+.con-form-msg--ok{color:rgba(22,101,52,0.95)}
+.con-form-msg--err{color:rgba(185,28,28,0.95)}
 
 /* FOOTER */
 .footer{background:#0f1322;padding:28px 52px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(245,244,243,0.08)}

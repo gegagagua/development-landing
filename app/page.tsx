@@ -1,3 +1,5 @@
+import { ContactForm } from "@/components/ContactForm";
+
 export default function Home() {
   return (
     <>
@@ -117,12 +119,12 @@ export default function Home() {
           <div className="f-bot">
             <div className="stats">
               <div className="stat">
-                <div className="st-num">18</div>
+                <div className="st-num">25</div>
                 <div className="st-lbl">სართული</div>
                 <div className="st-dsc">ბათუმის ისტორიულ ცენტრში</div>
               </div>
               <div className="stat">
-                <div className="st-num">350</div>
+                <div className="st-num">375</div>
                 <div className="st-lbl">აპარტამენტი</div>
                 <div className="st-dsc">სტუდიოდან 3-ოთახიანამდე</div>
               </div>
@@ -789,7 +791,7 @@ export default function Home() {
                 <div className="faq-a">
                   <div className="faq-a-in">
                     კომპლექსი გთავაზობთ სტუდიოდან 3-ოთახიან აპარტამენტებამდე. სულ
-                    350 აპარტამენტი 18 სართულზე.
+                    375 აპარტამენტი 25 სართულზე.
                   </div>
                 </div>
               </div>
@@ -808,16 +810,7 @@ export default function Home() {
             </div>
           </div>
           <div className="con-col">
-            <h2 className="con-h2">დაგვიკავშირდით</h2>
-            <form className="con-form">
-              <input placeholder="სახელი *" type="text" />
-              <input placeholder="ტელეფონი *" type="tel" />
-              <input placeholder="ელ. ფოსტა" type="email" />
-              <textarea placeholder="შეტყობინება *" />
-              <button className="con-btn" type="button">
-                გაგზავნა
-              </button>
-            </form>
+            <ContactForm />
           </div>
         </div>
       </section>
