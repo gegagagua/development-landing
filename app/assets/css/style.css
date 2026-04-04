@@ -1,5 +1,5 @@
 
-@font-face{font-family:'BPG';src:url('/fonts/bpg.ttf') format('truetype')}
+@font-face{font-family:'BPG';src:url('../fonts/bpg.ttf') format('truetype')}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html,body{overflow-x:hidden;max-width:100%}
 html{scroll-behavior:smooth}
