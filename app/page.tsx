@@ -1,8 +1,10 @@
 import { ContactForm } from "@/components/ContactForm";
+import { LandingInteractivity } from "@/components/LandingInteractivity";
 
 export default function Home() {
   return (
     <>
+      <LandingInteractivity />
       <nav className="gnav">
         <div>
           <svg
@@ -302,10 +304,18 @@ export default function Home() {
           </p>
         </div>
         <div className="pl-tabs">
-          <div className="pl-tab">სტუდიო</div>
-          <div className="pl-tab">ერთსაძინებლიანი</div>
-          <div className="pl-tab">ორსაძინებლიანი</div>
-          <div className="pl-tab active">სამსაძინებლიანი</div>
+          <div className="pl-tab" data-plan="studio">
+            სტუდიო
+          </div>
+          <div className="pl-tab" data-plan="one">
+            ერთსაძინებლიანი
+          </div>
+          <div className="pl-tab" data-plan="two">
+            ორსაძინებლიანი
+          </div>
+          <div className="pl-tab active" data-plan="three">
+            სამსაძინებლიანი
+          </div>
         </div>
         <div className="pl-main">
           <div className="pl-table">
@@ -385,29 +395,29 @@ export default function Home() {
                 <div className="pl-thc">ფართი</div>
                 <div className="pl-thc">ფასი</div>
               </div>
-              <div className="pl-row">
+              <div className="pl-row" data-plan="studio">
                 <div className="pl-td n">სტუდიო</div>
                 <div className="pl-td">35.7 – 49.7 მ²</div>
                 <div className="pl-td n">$100,435-დან</div>
               </div>
-              <div className="pl-row">
+              <div className="pl-row" data-plan="one">
                 <div className="pl-td n">ერთსაძინებლიანი</div>
                 <div className="pl-td">47.5 – 59.5 მ²</div>
                 <div className="pl-td n">$142,080-დან</div>
               </div>
-              <div className="pl-row">
+              <div className="pl-row" data-plan="two">
                 <div className="pl-td n">ორსაძინებლიანი</div>
                 <div className="pl-td">60.2 – 118.7 მ²</div>
                 <div className="pl-td n">$166,260-დან</div>
               </div>
-              <div className="pl-row active">
+              <div className="pl-row active" data-plan="three">
                 <div className="pl-td n">სამსაძინებლიანი</div>
                 <div className="pl-td">134.0 – 143.3 მ²</div>
                 <div className="pl-td n">$365,415-დან</div>
               </div>
             </div>
           </div>
-          <div className="pl-img-col show-studio" id="pl-img-col">
+          <div className="pl-img-col show-three" id="pl-img-col">
             <div
               className="pl-img-wrap"
               style={{ position: "relative", width: "100%", height: "100%" }}
