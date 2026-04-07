@@ -2,6 +2,7 @@
 
 import { FormEvent, useRef, useState } from "react";
 import { z } from "zod";
+import { WEB3FORMS_ACCESS_KEY } from "@/lib/web3forms";
 
 function isValidPhoneFormat(v: string): boolean {
   const d = v.replace(/\D/g, "");
@@ -76,7 +77,7 @@ function computeFieldMessages(raw: Record<FieldKey, string>): Partial<Record<Fie
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<FieldKey, string>>>({});
-  const [submitBanner, setSubmitBanner] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const validationActiveRef = useRef(false);
 
   function clearFieldError(key: FieldKey) {
@@ -96,7 +97,7 @@ export function ContactForm() {
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitBanner(false);
+    setSubmitError(null);
 
     const form = e.currentTarget;
     const fd = new FormData(form);
@@ -115,49 +116,52 @@ export function ContactForm() {
       return;
     }
 
-    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
-    if (!accessKey) {
-      validationActiveRef.current = false;
-      setFieldErrors({});
-      setStatus("error");
-      setSubmitBanner(true);
-      return;
-    }
-
     const { name, phone, email, message } = parsed.data;
     validationActiveRef.current = false;
     setFieldErrors({});
 
     const lines = [`ტელეფონი: ${phone}`, `ელ. ფოსტა: ${email}`, "", message];
 
-    const payload: Record<string, string | boolean> = {
-      access_key: accessKey,
-      subject: "Piazza Residence — კონტაქტის ფორმა",
-      name,
-      email,
-      message: lines.join("\n"),
-      botcheck: false,
-    };
+    const submitBody = new FormData();
+    submitBody.append("access_key", WEB3FORMS_ACCESS_KEY);
+    submitBody.append("subject", "Piazza Residence — კონტაქტის ფორმა");
+    submitBody.append("name", name);
+    submitBody.append("email", email);
+    submitBody.append("message", lines.join("\n"));
 
     setStatus("loading");
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: submitBody,
       });
-      const data = (await res.json()) as { success?: boolean };
+      const text = await res.text();
+      let data: { success?: boolean; message?: string } = {};
+      try {
+        data = text ? (JSON.parse(text) as { success?: boolean; message?: string }) : {};
+      } catch {
+        setStatus("error");
+        setSubmitError(
+          "სერვისმა არასწორი პასუხი დააბრუნა. სცადეთ ხელახლა ან შეამოწმეთ ინტერნეტი.",
+        );
+        return;
+      }
       if (!res.ok || !data.success) {
         setStatus("error");
-        setSubmitBanner(true);
+        const hint = data.message?.trim();
+        setSubmitError(
+          hint
+            ? `${hint} — სცადეთ ხელახლა ან შეამოწმეთ Web3Forms-ის გასაღები.`
+            : "ვერ გაიგზავნა. შეამოწმეთ ქსელი ან სცადეთ მოგვიანებით.",
+        );
         return;
       }
       setStatus("success");
-      setSubmitBanner(false);
+      setSubmitError(null);
       form.reset();
     } catch {
       setStatus("error");
-      setSubmitBanner(true);
+      setSubmitError("ვერ გაიგზავნა. შეამოწმეთ ქსელი ან სცადეთ მოგვიანებით.");
     }
   }
 
@@ -243,9 +247,9 @@ export function ContactForm() {
             გაგზავნილია. მალე დაგიკავშირდებით.
           </p>
         ) : null}
-        {submitBanner ? (
+        {submitError ? (
           <p className="con-form-msg con-form-msg--err" role="alert">
-            ვერ გაიგზავნა. შეამოწმეთ ქსელი ან სცადეთ მოგვიანებით.
+            {submitError}
           </p>
         ) : null}
       </form>
