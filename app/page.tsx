@@ -242,7 +242,7 @@ export default function Home() {
             <img alt="სრული ხედი · დღე" src="/assets/images/gallery-01-day.jpg" />
             <div className="g-img-ov" />
             <div className="g-img-lbl">
-              <div className="g-lbl-txt">სრული ხედი · დღე</div>
+              <div className="g-lbl-txt">ქალაქის სრული ხედი</div>
               <div className="g-lbl-num">01</div>
             </div>
           </div>
