@@ -248,7 +248,7 @@ export default function Home() {
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
-                <div className="g-lbl-txt">შესასვლელი · საღამო</div>
+                <div className="g-lbl-txt">PIAZZA Residence</div>
                 <div className="g-lbl-num">01</div>
               </div>
             </div>
@@ -260,7 +260,7 @@ export default function Home() {
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
-                <div className="g-lbl-txt">ეზო · სივრცე</div>
+                <div className="g-lbl-txt">ფასადი</div>
                 <div className="g-lbl-num">02</div>
               </div>
             </div>
@@ -272,7 +272,7 @@ export default function Home() {
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
-                <div className="g-lbl-txt">არქიტექტურული ხედი</div>
+                <div className="g-lbl-txt">შესასვლელი</div>
                 <div className="g-lbl-num">03</div>
               </div>
             </div>
