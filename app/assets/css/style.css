@@ -313,7 +313,7 @@ html,body{overflow-x:hidden;width:100%;max-width:100vw}
 /* GALLERY */
 .g-hdr{padding:28px 20px 20px;flex-direction:column;align-items:flex-start;gap:6px}
 .g-h2{font-size:28px}
-.g-grid{grid-template-columns:1fr;grid-template-rows:repeat(7,minmax(200px,26vh));gap:10px}
+.g-grid{grid-template-columns:1fr;grid-template-rows:minmax(280px,44vh) minmax(280px,44vh) minmax(280px,44vh) minmax(200px,26vh) minmax(200px,26vh) minmax(220px,28vh) minmax(220px,28vh);gap:10px}
 .g-img-1,.g-img-2,.g-img-3,.g-img-4,.g-img-5,.g-img-6,.g-img-7{grid-column:1/-1;grid-row:auto}
 .g-img-ov{opacity:1}
 .g-img-lbl{opacity:1}
