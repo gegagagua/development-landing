@@ -235,7 +235,7 @@ export default function Home() {
             </div>
             <h2 className="g-h2">გალერეა</h2>
           </div>
-          <div className="g-cnt">04 სურათი</div>
+          <div className="g-cnt">07 სურათი</div>
         </div>
         <div className="g-grid-wrap">
           <div className="g-grid">
@@ -248,44 +248,80 @@ export default function Home() {
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
-                <div className="g-lbl-txt">PIAZZA Residence</div>
+                <div className="g-lbl-txt">შესასვლელი · საღამო</div>
                 <div className="g-lbl-num">01</div>
               </div>
             </div>
             <div className="g-img g-img-2">
               <img
-                alt="კერძო პიაცა · ეზო და მოზაიკა"
-                src="/assets/images/new4.jpeg"
+                alt="PIAZZA Residence · ხედი ზემოდან"
+                src="/assets/images/2.jpeg"
                 loading="lazy"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
-                <div className="g-lbl-txt">ფასადი</div>
+                <div className="g-lbl-txt">სრული ხედი</div>
                 <div className="g-lbl-num">02</div>
               </div>
             </div>
             <div className="g-img g-img-3">
               <img
-                alt="Piazza Residence · არქიტექტურული ხედი"
-                src="/assets/images/mesame.jpeg"
+                alt="ეზო · ფასადი"
+                src="/assets/images/new4.jpeg"
                 loading="lazy"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
-                <div className="g-lbl-txt">შესასვლელი</div>
+                <div className="g-lbl-txt">ეზო · სივრცე</div>
                 <div className="g-lbl-num">03</div>
               </div>
             </div>
             <div className="g-img g-img-4">
               <img
-                alt="კერძო პიაცა"
-                src="/assets/images/gallery-03-piazza.jpg"
+                alt="Piazza Residence"
+                src="/assets/images/5.jpeg"
                 loading="lazy"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
-                <div className="g-lbl-txt">კერძო პიაცა</div>
+                <div className="g-lbl-txt">PIAZZA Residence</div>
                 <div className="g-lbl-num">04</div>
+              </div>
+            </div>
+            <div className="g-img g-img-5">
+              <img
+                alt="Piazza Residence"
+                src="/assets/images/6.jpeg"
+                loading="lazy"
+              />
+              <div className="g-img-ov" />
+              <div className="g-img-lbl">
+                <div className="g-lbl-txt">PIAZZA Residence</div>
+                <div className="g-lbl-num">05</div>
+              </div>
+            </div>
+            <div className="g-img g-img-6">
+              <img
+                alt="Piazza Residence"
+                src="/assets/images/7.jpeg"
+                loading="lazy"
+              />
+              <div className="g-img-ov" />
+              <div className="g-img-lbl">
+                <div className="g-lbl-txt">PIAZZA Residence</div>
+                <div className="g-lbl-num">06</div>
+              </div>
+            </div>
+            <div className="g-img g-img-7">
+              <img
+                alt="Piazza Residence"
+                src="/assets/images/4.jpeg"
+                loading="lazy"
+              />
+              <div className="g-img-ov" />
+              <div className="g-img-lbl">
+                <div className="g-lbl-txt">PIAZZA Residence</div>
+                <div className="g-lbl-num">07</div>
               </div>
             </div>
           </div>
