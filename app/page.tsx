@@ -920,9 +920,21 @@ export default function Home() {
         </div>
         <div className="footer-copy">© 2026 MOVE Development. ყველა უფლება დაცულია.</div>
         <div className="footer-links">
-          <a href="#">Facebook</a>
-          <a href="#">Instagram</a>
-          <a href="#">LinkedIn</a>
+          <a href="tel:+995593222228">593 22 22 28</a>
+          <a
+            href="https://www.facebook.com/profile.php?id=61589174859876"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Facebook
+          </a>
+          <a
+            href="https://www.instagram.com/move.development/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Instagram
+          </a>
         </div>
       </footer>
     </>

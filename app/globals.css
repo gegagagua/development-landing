@@ -241,8 +241,8 @@ body{font-family:'BPG',sans-serif;-webkit-font-smoothing:antialiased;background:
 .faq-item.open .faq-icon{transform:rotate(45deg)}
 .con-col{padding:64px 52px;background:#f5f4f3}
 .con-h2{font-family:'BPG',sans-serif;font-size:32px;font-weight:normal;letter-spacing:0.04em;text-transform:uppercase;color:#0f1322;margin-bottom:32px}
-.con-info{display:flex;gap:20px;margin-bottom:24px;flex-wrap:wrap}
-.con-info-item{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:#fff;border:1px solid rgba(15,19,34,0.15);color:#0f1322;font-family:'BPG',sans-serif;font-size:13px;letter-spacing:0.04em;text-decoration:none;transition:all 0.2s;border-radius:4px}
+.con-info{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.con-info-item{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;background:#fff;border:1px solid rgba(15,19,34,0.15);color:#0f1322;font-family:'BPG',sans-serif;font-size:10px;letter-spacing:0.03em;text-decoration:none;transition:all 0.2s;border-radius:4px}
 .con-info-item:hover{background:#0f1322;color:#f5f4f3;border-color:#0f1322}
 .con-info-item:hover svg{color:#f5f4f3}
 .con-info-item svg{flex-shrink:0;transition:color 0.2s}
