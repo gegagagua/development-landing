@@ -4,6 +4,105 @@ import { FormEvent, useRef, useState } from "react";
 import { z } from "zod";
 import { WEB3FORMS_ACCESS_KEY } from "@/lib/web3forms";
 
+type Locale = "ka" | "en" | "ru";
+
+const copy = {
+  ka: {
+    errors: {
+      nameEmpty: "შეიყვანეთ სახელი.",
+      nameLong: "სახელი ძალიან გრძელია.",
+      phoneEmpty: "შეიყვანეთ ტელეფონი.",
+      phoneInvalid: "+995 5XX XXX XXX, 5XXXXXXXX ან საერთაშორისო 10–15 ციფრი.",
+      emailEmpty: "შეიყვანეთ ელფოსტა.",
+      emailInvalid: "მაგ. name@domain.com — სრული ფორმატით.",
+      messageEmpty: "შეიყვანეთ შეტყობინება.",
+      messageLong: "ტექსტი ძალიან გრძელია.",
+      badResponse:
+        "სერვისმა არასწორი პასუხი დააბრუნა. სცადეთ ხელახლა ან შეამოწმეთ ინტერნეტი.",
+      retryWeb3:
+        "სცადეთ ხელახლა ან შეამოწმეთ Web3Forms-ის გასაღები.",
+      sendFailed: "ვერ გაიგზავნა. შეამოწმეთ ქსელი ან სცადეთ მოგვიანებით.",
+    },
+    labels: {
+      title: "დაგვიკავშირდით",
+      name: "სახელი *",
+      phone: "ტელეფონი *",
+      email: "ელ. ფოსტა *",
+      message: "შეტყობინება *",
+      sending: "იგზავნება…",
+      submit: "გაგზავნა",
+      success: "გაგზავნილია. მალე დაგიკავშირდებით.",
+    },
+    submit: {
+      phone: "ტელეფონი",
+      email: "ელ. ფოსტა",
+      subject: "Piazza Residence — კონტაქტის ფორმა",
+    },
+  },
+  en: {
+    errors: {
+      nameEmpty: "Please enter your name.",
+      nameLong: "Name is too long.",
+      phoneEmpty: "Please enter a phone number.",
+      phoneInvalid: "Use +995 5XX XXX XXX, 5XXXXXXXX, or 10–15 international digits.",
+      emailEmpty: "Please enter an email address.",
+      emailInvalid: "Use full format, e.g. name@domain.com.",
+      messageEmpty: "Please enter a message.",
+      messageLong: "Message is too long.",
+      badResponse:
+        "The service returned an invalid response. Try again or check your connection.",
+      retryWeb3: "Try again or check your Web3Forms key.",
+      sendFailed: "Could not send. Check your network or try again later.",
+    },
+    labels: {
+      title: "Contact Us",
+      name: "Name *",
+      phone: "Phone *",
+      email: "Email *",
+      message: "Message *",
+      sending: "Sending…",
+      submit: "Send",
+      success: "Sent successfully. We will contact you soon.",
+    },
+    submit: {
+      phone: "Phone",
+      email: "Email",
+      subject: "Piazza Residence — Contact Form",
+    },
+  },
+  ru: {
+    errors: {
+      nameEmpty: "Введите имя.",
+      nameLong: "Имя слишком длинное.",
+      phoneEmpty: "Введите номер телефона.",
+      phoneInvalid: "Используйте +995 5XX XXX XXX, 5XXXXXXXX или 10–15 международных цифр.",
+      emailEmpty: "Введите email.",
+      emailInvalid: "Используйте полный формат, например name@domain.com.",
+      messageEmpty: "Введите сообщение.",
+      messageLong: "Сообщение слишком длинное.",
+      badResponse:
+        "Сервис вернул некорректный ответ. Попробуйте снова или проверьте интернет.",
+      retryWeb3: "Попробуйте снова или проверьте ключ Web3Forms.",
+      sendFailed: "Не удалось отправить. Проверьте сеть или попробуйте позже.",
+    },
+    labels: {
+      title: "Свяжитесь с нами",
+      name: "Имя *",
+      phone: "Телефон *",
+      email: "Email *",
+      message: "Сообщение *",
+      sending: "Отправка…",
+      submit: "Отправить",
+      success: "Отправлено. Мы скоро с вами свяжемся.",
+    },
+    submit: {
+      phone: "Телефон",
+      email: "Email",
+      subject: "Piazza Residence — Контактная форма",
+    },
+  },
+} as const;
+
 function isValidPhoneFormat(v: string): boolean {
   const d = v.replace(/\D/g, "");
   if (d.length < 9 || d.length > 15) return false;
@@ -42,43 +141,38 @@ type FieldKey = "name" | "phone" | "email" | "message";
 
 type Status = "idle" | "loading" | "success" | "error";
 
-function computeFieldMessages(raw: Record<FieldKey, string>): Partial<Record<FieldKey, string>> {
+function computeFieldMessages(
+  raw: Record<FieldKey, string>,
+  locale: Locale,
+): Partial<Record<FieldKey, string>> {
   const out: Partial<Record<FieldKey, string>> = {};
+  const t = copy[locale].errors;
 
   if (!nameSchema.safeParse(raw.name).success) {
-    out.name =
-      raw.name.trim() === "" ? "შეიყვანეთ სახელი." : "სახელი ძალიან გრძელია.";
+    out.name = raw.name.trim() === "" ? t.nameEmpty : t.nameLong;
   }
 
   if (!phoneSchema.safeParse(raw.phone).success) {
-    out.phone =
-      raw.phone.trim() === ""
-        ? "შეიყვანეთ ტელეფონი."
-        : "+995 5XX XXX XXX, 5XXXXXXXX ან საერთაშორისო 10–15 ციფრი.";
+    out.phone = raw.phone.trim() === "" ? t.phoneEmpty : t.phoneInvalid;
   }
 
   if (!emailSchema.safeParse(raw.email).success) {
-    out.email =
-      raw.email.trim() === ""
-        ? "შეიყვანეთ ელფოსტა."
-        : "მაგ. name@domain.com — სრული ფორმატით.";
+    out.email = raw.email.trim() === "" ? t.emailEmpty : t.emailInvalid;
   }
 
   if (!messageSchema.safeParse(raw.message).success) {
-    out.message =
-      raw.message.trim() === ""
-        ? "შეიყვანეთ შეტყობინება."
-        : "ტექსტი ძალიან გრძელია.";
+    out.message = raw.message.trim() === "" ? t.messageEmpty : t.messageLong;
   }
 
   return out;
 }
 
-export function ContactForm() {
+export function ContactForm({ locale }: { locale: Locale }) {
   const [status, setStatus] = useState<Status>("idle");
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<FieldKey, string>>>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
   const validationActiveRef = useRef(false);
+  const t = copy[locale];
 
   function clearFieldError(key: FieldKey) {
     setFieldErrors((prev) => {
@@ -111,7 +205,7 @@ export function ContactForm() {
     const parsed = formSchema.safeParse(raw);
     if (!parsed.success) {
       validationActiveRef.current = true;
-      setFieldErrors(computeFieldMessages(raw));
+      setFieldErrors(computeFieldMessages(raw, locale));
       setStatus("error");
       return;
     }
@@ -120,11 +214,16 @@ export function ContactForm() {
     validationActiveRef.current = false;
     setFieldErrors({});
 
-    const lines = [`ტელეფონი: ${phone}`, `ელ. ფოსტა: ${email}`, "", message];
+    const lines = [
+      `${t.submit.phone}: ${phone}`,
+      `${t.submit.email}: ${email}`,
+      "",
+      message,
+    ];
 
     const submitBody = new FormData();
     submitBody.append("access_key", WEB3FORMS_ACCESS_KEY);
-    submitBody.append("subject", "Piazza Residence — კონტაქტის ფორმა");
+    submitBody.append("subject", t.submit.subject);
     submitBody.append("name", name);
     submitBody.append("email", email);
     submitBody.append("message", lines.join("\n"));
@@ -141,18 +240,14 @@ export function ContactForm() {
         data = text ? (JSON.parse(text) as { success?: boolean; message?: string }) : {};
       } catch {
         setStatus("error");
-        setSubmitError(
-          "სერვისმა არასწორი პასუხი დააბრუნა. სცადეთ ხელახლა ან შეამოწმეთ ინტერნეტი.",
-        );
+        setSubmitError(t.errors.badResponse);
         return;
       }
       if (!res.ok || !data.success) {
         setStatus("error");
         const hint = data.message?.trim();
         setSubmitError(
-          hint
-            ? `${hint} — სცადეთ ხელახლა ან შეამოწმეთ Web3Forms-ის გასაღები.`
-            : "ვერ გაიგზავნა. შეამოწმეთ ქსელი ან სცადეთ მოგვიანებით.",
+          hint ? `${hint} — ${t.errors.retryWeb3}` : t.errors.sendFailed,
         );
         return;
       }
@@ -161,13 +256,13 @@ export function ContactForm() {
       form.reset();
     } catch {
       setStatus("error");
-      setSubmitError("ვერ გაიგზავნა. შეამოწმეთ ქსელი ან სცადეთ მოგვიანებით.");
+      setSubmitError(t.errors.sendFailed);
     }
   }
 
   return (
     <>
-      <h2 className="con-h2">დაგვიკავშირდით</h2>
+      <h2 className="con-h2">{t.labels.title}</h2>
       <div className="con-info">
         <a href="tel:+995593222228" className="con-info-item">
           <svg
@@ -225,13 +320,28 @@ export function ContactForm() {
           </svg>
           <span>Instagram</span>
         </a>
+        <a
+          href="https://rtsp.me/embed/HR36KsYH/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="con-info-item con-info-item-live"
+        >
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/9/92/Point_rouge.gif"
+            alt="Live"
+            width="18"
+            height="18"
+            className="con-live-gif"
+          />
+          <span>LIVE</span>
+        </a>
       </div>
       <form className="con-form" onSubmit={onSubmit} noValidate>
         <div className="con-field-wrap">
           <input
             id="contact-name"
             name="name"
-            placeholder="სახელი *"
+            placeholder={t.labels.name}
             type="text"
             autoComplete="name"
             className={fieldErrors.name ? "con-field--err" : undefined}
@@ -249,7 +359,7 @@ export function ContactForm() {
           <input
             id="contact-phone"
             name="phone"
-            placeholder="ტელეფონი *"
+            placeholder={t.labels.phone}
             type="tel"
             autoComplete="tel"
             className={fieldErrors.phone ? "con-field--err" : undefined}
@@ -267,7 +377,7 @@ export function ContactForm() {
           <input
             id="contact-email"
             name="email"
-            placeholder="ელ. ფოსტა *"
+            placeholder={t.labels.email}
             type="email"
             autoComplete="email"
             className={fieldErrors.email ? "con-field--err" : undefined}
@@ -285,7 +395,7 @@ export function ContactForm() {
           <textarea
             id="contact-message"
             name="message"
-            placeholder="შეტყობინება *"
+            placeholder={t.labels.message}
             className={fieldErrors.message ? "con-field--err" : undefined}
             aria-invalid={fieldErrors.message ? true : undefined}
             aria-describedby={fieldErrors.message ? "contact-message-err" : undefined}
@@ -298,11 +408,11 @@ export function ContactForm() {
           ) : null}
         </div>
         <button className="con-btn" type="submit" disabled={status === "loading"}>
-          {status === "loading" ? "იგზავნება…" : "გაგზავნა"}
+          {status === "loading" ? t.labels.sending : t.labels.submit}
         </button>
         {status === "success" ? (
           <p className="con-form-msg con-form-msg--ok" role="status">
-            გაგზავნილია. მალე დაგიკავშირდებით.
+            {t.labels.success}
           </p>
         ) : null}
         {submitError ? (

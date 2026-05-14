@@ -1,10 +1,41 @@
+"use client";
+
 import { ContactForm } from "@/components/ContactForm";
 import { LandingInteractivity } from "@/components/LandingInteractivity";
+import { useEffect, useState } from "react";
+
+type Locale = "ka" | "en" | "ru";
 
 export default function Home() {
+  const [locale, setLocale] = useState<Locale>(() => {
+    if (typeof window === "undefined") return "ka";
+    const saved = window.localStorage.getItem("locale");
+    if (saved === "ka" || saved === "en" || saved === "ru") return saved;
+
+    const preferred = navigator.language.toLowerCase();
+    if (preferred.startsWith("ru")) return "ru";
+    if (preferred.startsWith("en")) return "en";
+    return "ka";
+  });
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+    window.localStorage.setItem("locale", locale);
+  }, [locale]);
+
+  const t = (ka: string, en: string, ru: string): string => {
+    if (locale === "en") return en;
+    if (locale === "ru") return ru;
+    return ka;
+  };
+
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <>
-      <LandingInteractivity />
+      <LandingInteractivity locale={locale} />
       <nav className="gnav">
         <div>
           <svg
@@ -52,24 +83,52 @@ export default function Home() {
         </div>
         <ul>
           <li>
-            <a href="#s-hero">მთავარი</a>
+            <a href="#s-hero">{t("მთავარი", "Home", "Главная")}</a>
           </li>
           <li>
-            <a href="#s-features">პროექტი</a>
+            <a href="#s-features">{t("პროექტი", "Project", "Проект")}</a>
           </li>
           <li>
-            <a href="#s-gallery">გალერეა</a>
+            <a href="#s-gallery">{t("გალერეა", "Gallery", "Галерея")}</a>
           </li>
           <li>
-            <a href="#s-plans">გეგმარება</a>
+            <a href="#s-plans">{t("გეგმარება", "Layouts", "Планировки")}</a>
           </li>
           <li>
-            <a href="#s-location">ლოკაცია</a>
+            <a href="#s-location">{t("ლოკაცია", "Location", "Локация")}</a>
           </li>
           <li>
-            <a href="#s-contact">კონტაქტი</a>
+            <a href="#s-contact">{t("კონტაქტი", "Contact", "Контакты")}</a>
           </li>
         </ul>
+        <div
+          style={{
+            display: "flex",
+            gap: "6px",
+            marginLeft: "16px",
+            alignItems: "center",
+          }}
+        >
+          {(["ka", "en", "ru"] as const).map((lang) => (
+            <button
+              key={lang}
+              type="button"
+              onClick={() => setLocale(lang)}
+              style={{
+                border: "1px solid rgba(245,244,243,0.45)",
+                background:
+                  locale === lang ? "rgba(245,244,243,0.2)" : "transparent",
+                color: "#f5f4f3",
+                fontSize: "10px",
+                padding: "5px 7px",
+                letterSpacing: "0.08em",
+                cursor: "pointer",
+              }}
+            >
+              {lang.toUpperCase()}
+            </button>
+          ))}
+        </div>
         <div className="hamburger" id="hamburger">
           <span />
           <span />
@@ -82,20 +141,34 @@ export default function Home() {
         <div className="h-ey">
           <div className="h-ey-text">
             MOVE DEVELOPMENT{" "}
-            <span style={{ color: "rgba(245,244,243,0.75)" }}>წარმოგიდგენთ</span>
+            <span style={{ color: "rgba(245,244,243,0.75)" }}>
+              {t("წარმოგიდგენთ", "presents", "представляет")}
+            </span>
           </div>
           <div className="h-ey-line" />
         </div>
         <h1 className="h-title">Piazza Residence</h1>
         <p className="h-sub">
-          პრემიუმ საცხოვრებელი კომპლექსი ბათუმის ისტორიულ ცენტრში
+          {t(
+            "პრემიუმ საცხოვრებელი კომპლექსი ბათუმის ისტორიულ ცენტრში",
+            "Premium residential complex in the historic center of Batumi",
+            "Премиальный жилой комплекс в историческом центре Батуми",
+          )}
         </p>
         <div className="h-btns">
-          <button type="button" className="btn btn-p">
-            მეტის გაგება
+          <button
+            type="button"
+            className="btn btn-p"
+            onClick={() => scrollToSection("s-features")}
+          >
+            {t("მეტის გაგება", "Learn more", "Узнать больше")}
           </button>
-          <button type="button" className="btn btn-o">
-            დაგვიკავშირდით
+          <button
+            type="button"
+            className="btn btn-o"
+            onClick={() => scrollToSection("s-contact")}
+          >
+            {t("დაგვიკავშირდით", "Contact us", "Связаться с нами")}
           </button>
         </div>
       </section>
@@ -103,42 +176,60 @@ export default function Home() {
         <div className="f-left">
           <div className="f-top">
             <div className="ey">
-              <span>პროექტის შესახებ</span>
+              <span>{t("პროექტის შესახებ", "About the project", "О проекте")}</span>
             </div>
             <h2 className="s-h2">
-              ძირითადი
+              {t("ძირითადი", "Key", "Основные")}
               <br />
-              მახასიათებლები
+              {t("მახასიათებლები", "features", "характеристики")}
             </h2>
           </div>
           <div className="f-mid">
             <p className="f-desc">
-              PIAZZA Residence — პრემიუმ კლასის საცხოვრებელი კომპლექსი, რომელიც
-              აერთიანებს თანამედროვე არქიტექტურას და 119 წლის კულტურული
-              მემკვიდრეობის შენობას ბათუმის ისტორიულ ცენტრში.
+              {t(
+                "PIAZZA Residence — პრემიუმ კლასის საცხოვრებელი კომპლექსი, რომელიც აერთიანებს თანამედროვე არქიტექტურას და 119 წლის კულტურული მემკვიდრეობის შენობას ბათუმის ისტორიულ ცენტრში.",
+                "PIAZZA Residence is a premium residential complex combining modern architecture with a 119-year-old cultural heritage building in Batumi's historic center.",
+                "PIAZZA Residence — премиальный жилой комплекс, объединяющий современную архитектуру и 119-летнее здание культурного наследия в историческом центре Батуми.",
+              )}
             </p>
           </div>
           <div className="f-bot">
             <div className="stats">
               <div className="stat">
                 <div className="st-num">25</div>
-                <div className="st-lbl">სართული</div>
-                <div className="st-dsc">ბათუმის ისტორიულ ცენტრში</div>
+                <div className="st-lbl">{t("სართული", "Floors", "Этажей")}</div>
+                <div className="st-dsc">
+                  {t(
+                    "ბათუმის ისტორიულ ცენტრში",
+                    "In Batumi's historic center",
+                    "В историческом центре Батуми",
+                  )}
+                </div>
               </div>
               <div className="stat">
                 <div className="st-num">375</div>
-                <div className="st-lbl">აპარტამენტი</div>
-                <div className="st-dsc">სტუდიოდან 3-ოთახიანამდე</div>
+                <div className="st-lbl">{t("აპარტამენტი", "Apartments", "Апартаментов")}</div>
+                <div className="st-dsc">
+                  {t("სტუდიოდან 3-ოთახიანამდე", "From studio to 3-bedroom", "От студий до 3-спальных")}
+                </div>
               </div>
               <div className="stat">
                 <div className="st-num">75M</div>
-                <div className="st-lbl">მილიონი დოლარი</div>
-                <div className="st-dsc">საერთაშორისო სტანდარტის</div>
+                <div className="st-lbl">{t("მილიონი დოლარი", "Million USD", "Миллионов долларов")}</div>
+                <div className="st-dsc">
+                  {t("საერთაშორისო სტანდარტის", "International standard", "Международный стандарт")}
+                </div>
               </div>
             </div>
           </div>
           <div className="tgl">
-            <span>არქიტექტურა, რომელიც რჩება</span>
+            <span>
+              {t(
+                "არქიტექტურა, რომელიც რჩება",
+                "Architecture that remains",
+                "Архитектура, которая остается",
+              )}
+            </span>
           </div>
         </div>
         <div className="f-right">
@@ -161,7 +252,11 @@ export default function Home() {
       <div className="s-div">
         <div className="s-div-line" />
         <div className="s-div-txt">
-          MOVE Development · Piazza Residence · ბათუმი, 2028
+          {t(
+            "MOVE Development · Piazza Residence · ბათუმი, 2028",
+            "MOVE Development · Piazza Residence · Batumi, 2028",
+            "MOVE Development · Piazza Residence · Батуми, 2028",
+          )}
         </div>
         <div className="s-div-line" />
       </div>
@@ -171,51 +266,97 @@ export default function Home() {
             <span>MOVE Development · Piazza Residence</span>
           </div>
           <h2 className="s-h2">
-            პროექტის
+            {t("პროექტის", "Project", "О проекте")}
             <br />
-            შესახებ
+            {t("შესახებ", "Overview", "обзор")}
           </h2>
-          <p className="p-sub">არქიტექტურა, კომფორტი და ისტორია ერთ სივრცეში</p>
+          <p className="p-sub">
+            {t(
+              "არქიტექტურა, კომფორტი და ისტორია ერთ სივრცეში",
+              "Architecture, comfort, and history in one place",
+              "Архитектура, комфорт и история в одном пространстве",
+            )}
+          </p>
           <div className="p-list">
             <div className="p-item">
               <span className="p-num">01</span>
               <span className="p-txt">
-                119 წლის კულტურული ძეგლი — რესტავრირებული და ინტეგრირებული
+                {t(
+                  "119 წლის კულტურული ძეგლი — რესტავრირებული და ინტეგრირებული",
+                  "119-year cultural monument restored and integrated",
+                  "119-летний памятник культуры — отреставрирован и интегрирован",
+                )}
               </span>
             </div>
             <div className="p-item">
               <span className="p-num">02</span>
-              <span className="p-txt">კერძო პიაცა ვენეციური შადრევნებით</span>
+              <span className="p-txt">
+                {t(
+                  "კერძო პიაცა ვენეციური შადრევნებით",
+                  "Private piazza with Venetian fountains",
+                  "Частная пьяцца с венецианскими фонтанами",
+                )}
+              </span>
             </div>
             <div className="p-item">
               <span className="p-num">03</span>
-              <span className="p-txt">13–მეტრიანი კოლონადები, ბუნებრივი ქვის ფასადი</span>
+              <span className="p-txt">
+                {t(
+                  "13–მეტრიანი კოლონადები, ბუნებრივი ქვის ფასადი",
+                  "13-meter colonnades and natural stone facade",
+                  "13-метровые колоннады и фасад из натурального камня",
+                )}
+              </span>
             </div>
             <div className="p-item">
               <span className="p-num">04</span>
               <span className="p-txt">
-                მაღალჭერიანი, ნათელი, ფუნქციურად განლაგებული ინტერიერი
+                {t(
+                  "მაღალჭერიანი, ნათელი, ფუნქციურად განლაგებული ინტერიერი",
+                  "High-ceiling, bright, and functional interiors",
+                  "Высокие потолки, светлые и функциональные интерьеры",
+                )}
               </span>
             </div>
             <div className="p-item">
               <span className="p-num">05</span>
               <span className="p-txt">
-                ზღვის, მთის და ქალაქის ხედები — ყველა აპარტამენტს აქვს აივანი
+                {t(
+                  "ზღვის, მთის და ქალაქის ხედები — ყველა აპარტამენტს აქვს აივანი",
+                  "Sea, mountain, and city views; every apartment has a balcony",
+                  "Виды на море, горы и город — у каждого апартамента есть балкон",
+                )}
               </span>
             </div>
             <div className="p-item">
               <span className="p-num">06</span>
               <span className="p-txt">
-                კონსიერჟ–სერვისი, 24/7 დაცვა და ვიდეომონიტორინგი
+                {t(
+                  "კონსიერჟ–სერვისი, 24/7 დაცვა და ვიდეომონიტორინგი",
+                  "Concierge service, 24/7 security, and video surveillance",
+                  "Консьерж-сервис, охрана 24/7 и видеонаблюдение",
+                )}
               </span>
             </div>
             <div className="p-item">
               <span className="p-num">07</span>
-              <span className="p-txt">ქონების მართვა და გაქირავების სერვისი</span>
+              <span className="p-txt">
+                {t(
+                  "ქონების მართვა და გაქირავების სერვისი",
+                  "Property management and rental service",
+                  "Управление недвижимостью и сервис аренды",
+                )}
+              </span>
             </div>
             <div className="p-item">
               <span className="p-num">08</span>
-              <span className="p-txt">TBC Bank–ის სრული დაფინანსება</span>
+              <span className="p-txt">
+                {t(
+                  "TBC Bank–ის სრული დაფინანსება",
+                  "Full financing by TBC Bank",
+                  "Полное финансирование от TBC Bank",
+                )}
+              </span>
             </div>
           </div>
         </div>
@@ -231,48 +372,66 @@ export default function Home() {
         <div className="g-hdr">
           <div>
             <div className="g-ey">
-              <span>Piazza Residence · ბათუმი</span>
+              <span>
+                {t(
+                  "Piazza Residence · ბათუმი",
+                  "Piazza Residence · Batumi",
+                  "Piazza Residence · Батуми",
+                )}
+              </span>
             </div>
-            <h2 className="g-h2">გალერეა</h2>
+            <h2 className="g-h2">{t("გალერეა", "Gallery", "Галерея")}</h2>
           </div>
-          <div className="g-cnt">07 სურათი</div>
+          <div className="g-cnt">{t("07 სურათი", "07 images", "07 изображений")}</div>
         </div>
         <div className="g-grid-wrap">
           <div className="g-grid">
             <div className="g-img g-img-1">
               <img
-                alt="შესასვლელი · საღამოს განათება"
+                alt={t(
+                  "შესასვლელი · საღამოს განათება",
+                  "Entrance · evening lighting",
+                  "Вход · вечерняя подсветка",
+                )}
                 src="/assets/images/new2.jpeg"
                 loading="eager"
                 fetchPriority="high"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
-                <div className="g-lbl-txt">შესასვლელი · საღამო</div>
+                <div className="g-lbl-txt">
+                  {t("შესასვლელი · საღამო", "Entrance · evening", "Вход · вечер")}
+                </div>
                 <div className="g-lbl-num">01</div>
               </div>
             </div>
             <div className="g-img g-img-2">
               <img
-                alt="PIAZZA Residence · ხედი ზემოდან"
+                alt={t(
+                  "PIAZZA Residence · ხედი ზემოდან",
+                  "PIAZZA Residence · top view",
+                  "PIAZZA Residence · вид сверху",
+                )}
                 src="/assets/images/2.jpeg"
                 loading="lazy"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
-                <div className="g-lbl-txt">სრული ხედი</div>
+                <div className="g-lbl-txt">{t("სრული ხედი", "Full view", "Общий вид")}</div>
                 <div className="g-lbl-num">02</div>
               </div>
             </div>
             <div className="g-img g-img-3">
               <img
-                alt="ეზო · ფასადი"
+                alt={t("ეზო · ფასადი", "Courtyard · facade", "Двор · фасад")}
                 src="/assets/images/new4.jpeg"
                 loading="lazy"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
-                <div className="g-lbl-txt">ეზო · სივრცე</div>
+                <div className="g-lbl-txt">
+                  {t("ეზო · სივრცე", "Courtyard · space", "Двор · пространство")}
+                </div>
                 <div className="g-lbl-num">03</div>
               </div>
             </div>
@@ -328,18 +487,36 @@ export default function Home() {
         </div>
         <div className="g-bot">
           <div className="g-tgl">
-            <span>არქიტექტურა, რომელიც რჩება</span>
+            <span>
+              {t(
+                "არქიტექტურა, რომელიც რჩება",
+                "Architecture that remains",
+                "Архитектура, которая остается",
+              )}
+            </span>
           </div>
-          <div className="g-loc">Batumi · Georgia · 2028</div>
+          <div className="g-loc">
+            {t(
+              "ბათუმი · საქართველო · 2028",
+              "Batumi · Georgia · 2028",
+              "Батуми · Грузия · 2028",
+            )}
+          </div>
         </div>
       </section>
       <section id="s-plans">
         <div className="pl-hdr">
           <div>
             <div className="pl-ey">
-              <span>Piazza Residence · ბათუმი</span>
+              <span>
+                {t(
+                  "Piazza Residence · ბათუმი",
+                  "Piazza Residence · Batumi",
+                  "Piazza Residence · Батуми",
+                )}
+              </span>
             </div>
-            <h2 className="pl-h2">გეგმარება</h2>
+            <h2 className="pl-h2">{t("გეგმარება", "Layouts", "Планировки")}</h2>
           </div>
           <p
             style={{
@@ -349,42 +526,42 @@ export default function Home() {
               paddingBottom: "4px",
             }}
           >
-            შეარჩიეთ თქვენი სივრცე
+            {t("შეარჩიეთ თქვენი სივრცე", "Choose your space", "Выберите свое пространство")}
           </p>
         </div>
         <div className="pl-tabs">
           <div className="pl-tab" data-plan="studio">
-            სტუდიო
+            {t("სტუდიო", "Studio", "Студия")}
           </div>
           <div className="pl-tab" data-plan="one">
-            ერთსაძინებლიანი
+            {t("ერთსაძინებლიანი", "One-bedroom", "С одной спальней")}
           </div>
           <div className="pl-tab" data-plan="two">
-            ორსაძინებლიანი
+            {t("ორსაძინებლიანი", "Two-bedroom", "С двумя спальнями")}
           </div>
           <div className="pl-tab active" data-plan="three">
-            სამსაძინებლიანი
+            {t("სამსაძინებლიანი", "Three-bedroom", "С тремя спальнями")}
           </div>
         </div>
         <div className="pl-main">
           <div className="pl-table">
             <div className="pl-strip">
               <div className="pl-si">
-                <div className="pl-si-lbl">ტიპი</div>
+                <div className="pl-si-lbl">{t("ტიპი", "Type", "Тип")}</div>
                 <div className="pl-si-val" id="pl-type">
-                  სამსაძინებლიანი
+                  {t("სამსაძინებლიანი", "Three-bedroom", "С тремя спальнями")}
                 </div>
               </div>
               <div className="pl-si">
-                <div className="pl-si-lbl">ფართი</div>
+                <div className="pl-si-lbl">{t("ფართი", "Area", "Площадь")}</div>
                 <div className="pl-si-val" id="pl-area">
-                  134.0 – 143.3 მ²
+                  {t("134.0 – 143.3 მ²", "134.0 – 143.3 m²", "134.0 – 143.3 м²")}
                 </div>
               </div>
               <div className="pl-si">
-                <div className="pl-si-lbl">ფასი</div>
+                <div className="pl-si-lbl">{t("ფასი", "Price", "Цена")}</div>
                 <div className="pl-si-val" id="pl-price">
-                  $365,415-დან
+                  {t("$365,415-დან", "from $365,415", "от $365,415")}
                 </div>
               </div>
             </div>
@@ -399,7 +576,7 @@ export default function Home() {
                     width="10"
                   />
                 </svg>
-                სტუდიო
+                {t("სტუდიო", "Studio", "Студия")}
               </div>
               <div className="pl-legend-item">
                 <svg className="pl-legend-dot" viewBox="0 0 10 10">
@@ -411,7 +588,7 @@ export default function Home() {
                     width="10"
                   />
                 </svg>
-                1 საძინებელი
+                {t("1 საძინებელი", "1 bedroom", "1 спальня")}
               </div>
               <div className="pl-legend-item">
                 <svg className="pl-legend-dot" viewBox="0 0 10 10">
@@ -423,7 +600,7 @@ export default function Home() {
                     width="10"
                   />
                 </svg>
-                2 საძინებელი
+                {t("2 საძინებელი", "2 bedrooms", "2 спальни")}
               </div>
               <div className="pl-legend-item">
                 <svg className="pl-legend-dot" viewBox="0 0 10 10">
@@ -435,34 +612,34 @@ export default function Home() {
                     width="10"
                   />
                 </svg>
-                3 საძინებელი
+                {t("3 საძინებელი", "3 bedrooms", "3 спальни")}
               </div>
             </div>
             <div className="pl-tw">
               <div className="pl-th">
-                <div className="pl-thc">ტიპი</div>
-                <div className="pl-thc">ფართი</div>
-                <div className="pl-thc">ფასი</div>
+                <div className="pl-thc">{t("ტიპი", "Type", "Тип")}</div>
+                <div className="pl-thc">{t("ფართი", "Area", "Площадь")}</div>
+                <div className="pl-thc">{t("ფასი", "Price", "Цена")}</div>
               </div>
               <div className="pl-row" data-plan="studio">
-                <div className="pl-td n">სტუდიო</div>
-                <div className="pl-td">35.7 – 49.7 მ²</div>
-                <div className="pl-td n">$100,435-დან</div>
+                <div className="pl-td n">{t("სტუდიო", "Studio", "Студия")}</div>
+                <div className="pl-td">{t("35.7 – 49.7 მ²", "35.7 – 49.7 m²", "35.7 – 49.7 м²")}</div>
+                <div className="pl-td n">{t("$100,435-დან", "from $100,435", "от $100,435")}</div>
               </div>
               <div className="pl-row" data-plan="one">
-                <div className="pl-td n">ერთსაძინებლიანი</div>
-                <div className="pl-td">47.5 – 59.5 მ²</div>
-                <div className="pl-td n">$142,080-დან</div>
+                <div className="pl-td n">{t("ერთსაძინებლიანი", "One-bedroom", "С одной спальней")}</div>
+                <div className="pl-td">{t("47.5 – 59.5 მ²", "47.5 – 59.5 m²", "47.5 – 59.5 м²")}</div>
+                <div className="pl-td n">{t("$142,080-დან", "from $142,080", "от $142,080")}</div>
               </div>
               <div className="pl-row" data-plan="two">
-                <div className="pl-td n">ორსაძინებლიანი</div>
-                <div className="pl-td">60.2 – 118.7 მ²</div>
-                <div className="pl-td n">$166,260-დან</div>
+                <div className="pl-td n">{t("ორსაძინებლიანი", "Two-bedroom", "С двумя спальнями")}</div>
+                <div className="pl-td">{t("60.2 – 118.7 მ²", "60.2 – 118.7 m²", "60.2 – 118.7 м²")}</div>
+                <div className="pl-td n">{t("$166,260-დან", "from $166,260", "от $166,260")}</div>
               </div>
               <div className="pl-row active" data-plan="three">
-                <div className="pl-td n">სამსაძინებლიანი</div>
-                <div className="pl-td">134.0 – 143.3 მ²</div>
-                <div className="pl-td n">$365,415-დან</div>
+                <div className="pl-td n">{t("სამსაძინებლიანი", "Three-bedroom", "С тремя спальнями")}</div>
+                <div className="pl-td">{t("134.0 – 143.3 მ²", "134.0 – 143.3 m²", "134.0 – 143.3 м²")}</div>
+                <div className="pl-td n">{t("$365,415-დან", "from $365,415", "от $365,415")}</div>
               </div>
             </div>
           </div>
@@ -472,7 +649,7 @@ export default function Home() {
               style={{ position: "relative", width: "100%", height: "100%" }}
             >
               <img
-                alt="სართულის გეგმარება"
+                alt={t("სართულის გეგმარება", "Floor plan", "План этажа")}
                 className="pl-floorplan-img"
                 id="pl-plan-img"
                 src="/assets/images/floorplan.png"
@@ -656,7 +833,11 @@ export default function Home() {
               <div className="pl-badge">
                 <div className="pl-badge-dot" />
                 <div className="pl-badge-txt" id="plan-badge-text">
-                  სრული სართულის გეგმარება
+                  {t(
+                    "სრული სართულის გეგმარება",
+                    "Full floor plan",
+                    "Полная планировка этажа",
+                  )}
                 </div>
               </div>
               <div
@@ -681,28 +862,48 @@ export default function Home() {
                     textTransform: "uppercase",
                   }}
                 >
-                  სტუდიო
+                  {t("სტუდიო", "Studio", "Студия")}
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="pl-tgl">
-          <span>არქიტექტურა, რომელიც რჩება</span>
+          <span>
+            {t(
+              "არქიტექტურა, რომელიც რჩება",
+              "Architecture that remains",
+              "Архитектура, которая остается",
+            )}
+          </span>
         </div>
       </section>
       <section id="s-location">
         <div className="lo-hdr">
           <div>
             <div className="lo-ey">
-              <span>Piazza Residence · ბათუმი</span>
+              <span>
+                {t(
+                  "Piazza Residence · ბათუმი",
+                  "Piazza Residence · Batumi",
+                  "Piazza Residence · Батуми",
+                )}
+              </span>
             </div>
-            <h2 className="lo-h2">ლოკაცია</h2>
+            <h2 className="lo-h2">{t("ლოკაცია", "Location", "Локация")}</h2>
           </div>
           <p className="lo-desc">
-            ბათუმის ისტორიულ ცენტრში —
+            {t(
+              "ბათუმის ისტორიულ ცენტრში —",
+              "In the historic center of Batumi —",
+              "В историческом центре Батуми —",
+            )}
             <br />
-            სადაც ყველაფერი ხელმისაწვდომია
+            {t(
+              "სადაც ყველაფერი ხელმისაწვდომია",
+              "where everything is within reach",
+              "где все находится рядом",
+            )}
           </p>
         </div>
         <div className="lo-map">
@@ -717,7 +918,11 @@ export default function Home() {
               display: "block",
               background: "#dfe6ec",
             }}
-            title="Piazza Residence location map"
+            title={t(
+              "Piazza Residence location map",
+              "Piazza Residence location map",
+              "Карта расположения Piazza Residence",
+            )}
             width="100%"
           />
           <a
@@ -739,48 +944,60 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            რუკის გახსნა ↗
+            {t("რუკის გახსნა ↗", "Open map ↗", "Открыть карту ↗")}
           </a>
           <div className="lo-map-badge">
             <div className="lo-map-dot" />
             <div className="lo-map-txt">
-              Piazza Residence · ვახტანგ გორგასლის 59
+              {t(
+                "Piazza Residence · ვახტანგ გორგასლის 59",
+                "Piazza Residence · 59 Vakhtang Gorgasali",
+                "Piazza Residence · Вахтанга Горгасали 59",
+              )}
             </div>
           </div>
         </div>
         <div className="lo-stats">
           <div className="lo-stat">
-            <div className="lo-st-lbl">ზღვამდე</div>
-            <div className="lo-st-val">300მ</div>
-            <div className="lo-st-dsc">ფეხით 4 წუთი</div>
+            <div className="lo-st-lbl">{t("ზღვამდე", "To sea", "До моря")}</div>
+            <div className="lo-st-val">{t("300მ", "300 m", "300 м")}</div>
+            <div className="lo-st-dsc">{t("ფეხით 4 წუთი", "4 min walk", "4 минуты пешком")}</div>
           </div>
           <div className="lo-stat">
-            <div className="lo-st-lbl">ბულვარამდე</div>
-            <div className="lo-st-val">5 წთ</div>
-            <div className="lo-st-dsc">ფეხით</div>
+            <div className="lo-st-lbl">{t("ბულვარამდე", "To boulevard", "До бульвара")}</div>
+            <div className="lo-st-val">{t("5 წთ", "5 min", "5 мин")}</div>
+            <div className="lo-st-dsc">{t("ფეხით", "walk", "пешком")}</div>
           </div>
           <div className="lo-stat">
-            <div className="lo-st-lbl">აეროპორტამდე</div>
-            <div className="lo-st-val">15 წთ</div>
-            <div className="lo-st-dsc">მანქანით</div>
+            <div className="lo-st-lbl">{t("აეროპორტამდე", "To airport", "До аэропорта")}</div>
+            <div className="lo-st-val">{t("15 წთ", "15 min", "15 мин")}</div>
+            <div className="lo-st-dsc">{t("მანქანით", "by car", "на машине")}</div>
           </div>
           <div className="lo-stat">
-            <div className="lo-st-lbl">ისტორიული ცენტრი</div>
-            <div className="lo-st-val">0 კმ</div>
-            <div className="lo-st-dsc">ცენტრში, პირდაპირ</div>
+            <div className="lo-st-lbl">
+              {t("ისტორიული ცენტრი", "Historic center", "Исторический центр")}
+            </div>
+            <div className="lo-st-val">{t("0 კმ", "0 km", "0 км")}</div>
+            <div className="lo-st-dsc">{t("ცენტრში, პირდაპირ", "right in the center", "прямо в центре")}</div>
           </div>
         </div>
         <div className="lo-bot">
           <div className="lo-addr">
-            <div className="lo-addr-lbl">მისამართი</div>
+            <div className="lo-addr-lbl">{t("მისამართი", "Address", "Адрес")}</div>
             <div className="lo-addr-txt">
-              ვახტანგ გორგასლის ქ. 59
+              {t("ვახტანგ გორგასლის ქ. 59", "59 Vakhtang Gorgasali St.", "ул. Вахтанга Горгасали, 59")}
               <br />
-              ბათუმი, საქართველო
+              {t("ბათუმი, საქართველო", "Batumi, Georgia", "Батуми, Грузия")}
             </div>
           </div>
           <div className="lo-tgl">
-            <span>არქიტექტურა, რომელიც რჩება</span>
+            <span>
+              {t(
+                "არქიტექტურა, რომელიც რჩება",
+                "Architecture that remains",
+                "Архитектура, которая остается",
+              )}
+            </span>
           </div>
         </div>
       </section>
@@ -788,32 +1005,44 @@ export default function Home() {
         <div className="pr-section">
           <div className="pr-hdr">
             <div className="pr-ey">
-              <span>Piazza Residence · მშენებლობის სტატუსი</span>
+              <span>
+                {t(
+                  "Piazza Residence · მშენებლობის სტატუსი",
+                  "Piazza Residence · Construction status",
+                  "Piazza Residence · Статус строительства",
+                )}
+              </span>
             </div>
-            <h2 className="pr-h2">პროგრესი &amp; განახლებები</h2>
-            <p className="pr-sub">მშენებლობის მიმდინარე სტატუსი</p>
+            <h2 className="pr-h2">{t("პროგრესი & განახლებები", "Progress & Updates", "Прогресс и обновления")}</h2>
+            <p className="pr-sub">
+              {t(
+                "მშენებლობის მიმდინარე სტატუსი",
+                "Current construction status",
+                "Текущий статус строительства",
+              )}
+            </p>
           </div>
           <div className="timeline">
             <div className="tl-line" />
-            <div className="tl-prog" />
+            <div className="tl-prog" style={{ width: "50%" }} />
             <div className="tl-step">
               <div className="tl-dot active" />
-              <div className="tl-lbl">ფუნდამენტი</div>
+              <div className="tl-lbl">{t("ფუნდამენტი", "Foundation", "Фундамент")}</div>
               <div className="tl-yr">2025</div>
             </div>
             <div className="tl-step">
-              <div className="tl-dot" />
-              <div className="tl-lbl">მშენებლობა</div>
+              <div className="tl-dot active" />
+              <div className="tl-lbl">{t("მშენებლობა", "Construction", "Строительство")}</div>
               <div className="tl-yr">2026</div>
             </div>
             <div className="tl-step">
               <div className="tl-dot" />
-              <div className="tl-lbl">ფასადი</div>
+              <div className="tl-lbl">{t("ფასადი", "Facade", "Фасад")}</div>
               <div className="tl-yr">2027</div>
             </div>
             <div className="tl-step">
               <div className="tl-dot" />
-              <div className="tl-lbl">ჩაბარება</div>
+              <div className="tl-lbl">{t("ჩაბარება", "Handover", "Сдача")}</div>
               <div className="tl-yr">2028</div>
             </div>
           </div>
@@ -824,52 +1053,81 @@ export default function Home() {
               <span>FAQ</span>
             </div>
             <h2 className="faq-h2">
-              ხშირად დასმული
+              {t("ხშირად დასმული", "Frequently asked", "Часто задаваемые")}
               <br />
-              კითხვები
+              {t("კითხვები", "questions", "вопросы")}
             </h2>
-            <p className="faq-sub">გაქვთ კითხვა? პასუხები ქვემოთ.</p>
+            <p className="faq-sub">
+              {t("გაქვთ კითხვა? პასუხები ქვემოთ.", "Have a question? Answers below.", "Есть вопрос? Ответы ниже.")}
+            </p>
             <div className="faq-list">
               <div className="faq-item">
                 <div className="faq-q">
-                  <span className="faq-q-txt">როდის ჩაბარდება კომპლექსი?</span>
+                  <span className="faq-q-txt">
+                    {t(
+                      "როდის ჩაბარდება კომპლექსი?",
+                      "When will the complex be completed?",
+                      "Когда комплекс будет сдан?",
+                    )}
+                  </span>
                   <div className="faq-icon">+</div>
                 </div>
                 <div className="faq-a">
                   <div className="faq-a-in">
-                    Piazza Residence-ის მშენებლობა დასრულდება 2028 წლის ბოლოს.
-                    ამჟამად მიმდინარეობს ფუნდამენტის სამუშაოები.
+                    {t(
+                      "Piazza Residence-ის მშენებლობა დასრულდება 2028 წლის ბოლოს. ამჟამად მიმდინარეობს ფუნდამენტის სამუშაოები.",
+                      "Construction of Piazza Residence will be completed by the end of 2028. Foundation work is currently in progress.",
+                      "Строительство Piazza Residence завершится к концу 2028 года. Сейчас ведутся фундаментные работы.",
+                    )}
                   </div>
                 </div>
               </div>
               <div className="faq-item">
                 <div className="faq-q">
-                  <span className="faq-q-txt">რა ტიპის ბინებია ხელმისაწვდომი?</span>
+                  <span className="faq-q-txt">
+                    {t(
+                      "რა ტიპის ბინებია ხელმისაწვდომი?",
+                      "What apartment types are available?",
+                      "Какие типы апартаментов доступны?",
+                    )}
+                  </span>
                   <div className="faq-icon">+</div>
                 </div>
                 <div className="faq-a">
                   <div className="faq-a-in">
-                    კომპლექსი გთავაზობთ სტუდიოდან 3-ოთახიან აპარტამენტებამდე. სულ
-                    375 აპარტამენტი 25 სართულზე.
+                    {t(
+                      "კომპლექსი გთავაზობთ სტუდიოდან 3-ოთახიან აპარტამენტებამდე. სულ 375 აპარტამენტი 25 სართულზე.",
+                      "The complex offers apartments from studios to 3-bedroom units. In total, 375 apartments across 25 floors.",
+                      "Комплекс предлагает апартаменты от студий до 3-спальных. Всего 375 апартаментов на 25 этажах.",
+                    )}
                   </div>
                 </div>
               </div>
               <div className="faq-item">
                 <div className="faq-q">
-                  <span className="faq-q-txt">რა არის გადახდის პირობები?</span>
+                  <span className="faq-q-txt">
+                    {t(
+                      "რა არის გადახდის პირობები?",
+                      "What are the payment terms?",
+                      "Какие условия оплаты?",
+                    )}
+                  </span>
                   <div className="faq-icon">+</div>
                 </div>
                 <div className="faq-a">
                   <div className="faq-a-in">
-                    Piazza Residence გთავაზობთ მოქნილ გადახდის პირობებს.
-                    დეტალური ინფორმაციისთვის დაგვიკავშირდით.
+                    {t(
+                      "Piazza Residence გთავაზობთ მოქნილ გადახდის პირობებს. დეტალური ინფორმაციისთვის დაგვიკავშირდით.",
+                      "Piazza Residence offers flexible payment terms. Contact us for detailed information.",
+                      "Piazza Residence предлагает гибкие условия оплаты. Свяжитесь с нами для подробной информации.",
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="con-col">
-            <ContactForm />
+            <ContactForm locale={locale} />
           </div>
         </div>
       </section>
@@ -918,7 +1176,13 @@ export default function Home() {
             />
           </svg>
         </div>
-        <div className="footer-copy">© 2026 MOVE Development. ყველა უფლება დაცულია.</div>
+        <div className="footer-copy">
+          {t(
+            "© 2026 MOVE Development. ყველა უფლება დაცულია.",
+            "© 2026 MOVE Development. All rights reserved.",
+            "© 2026 MOVE Development. Все права защищены.",
+          )}
+        </div>
         <div className="footer-links">
           <a href="tel:+995593222228">593 22 22 28</a>
           <a
