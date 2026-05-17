@@ -320,21 +320,6 @@ export function ContactForm({ locale }: { locale: Locale }) {
           </svg>
           <span>Instagram</span>
         </a>
-        <a
-          href="https://rtsp.me/embed/HR36KsYH/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="con-info-item con-info-item-live"
-        >
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/9/92/Point_rouge.gif"
-            alt="Live"
-            width="18"
-            height="18"
-            className="con-live-gif"
-          />
-          <span>LIVE</span>
-        </a>
       </div>
       <form className="con-form" onSubmit={onSubmit} noValidate>
         <div className="con-field-wrap">

@@ -101,33 +101,42 @@ export default function Home() {
             <a href="#s-contact">{t("კონტაქტი", "Contact", "Контакты")}</a>
           </li>
         </ul>
-        <div
-          style={{
-            display: "flex",
-            gap: "6px",
-            marginLeft: "16px",
-            alignItems: "center",
-          }}
-        >
-          {(["ka", "en", "ru"] as const).map((lang) => (
-            <button
-              key={lang}
-              type="button"
-              onClick={() => setLocale(lang)}
-              style={{
-                border: "1px solid rgba(245,244,243,0.45)",
-                background:
-                  locale === lang ? "rgba(245,244,243,0.2)" : "transparent",
-                color: "#f5f4f3",
-                fontSize: "10px",
-                padding: "5px 7px",
-                letterSpacing: "0.08em",
-                cursor: "pointer",
-              }}
-            >
-              {lang.toUpperCase()}
-            </button>
-          ))}
+        <div className="nav-actions">
+          <a
+            href="https://rtsp.me/embed/HR36KsYH/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="nav-live"
+            aria-label={t("ლაივ კამერა", "Live camera", "Прямая трансляция")}
+          >
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/9/92/Point_rouge.gif"
+              alt=""
+              width="14"
+              height="14"
+              className="nav-live-dot"
+            />
+            <span>LIVE</span>
+          </a>
+          <button
+            type="button"
+            className="nav-cta"
+            onClick={() => scrollToSection("s-contact")}
+          >
+            {t("მოითხოვე ზარი", "Request a call", "Заказать звонок")}
+          </button>
+          <div className="nav-langs">
+            {(["ka", "en", "ru"] as const).map((lang) => (
+              <button
+                key={lang}
+                type="button"
+                onClick={() => setLocale(lang)}
+                className={`nav-lang${locale === lang ? " nav-lang--active" : ""}`}
+              >
+                {lang.toUpperCase()}
+              </button>
+            ))}
+          </div>
         </div>
         <div className="hamburger" id="hamburger">
           <span />
@@ -135,6 +144,27 @@ export default function Home() {
           <span />
         </div>
       </nav>
+      <a
+        href="https://wa.me/995593222228"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="wa-fab"
+        aria-label={t(
+          "ვოთსაფი +995 593 22 22 28",
+          "WhatsApp +995 593 22 22 28",
+          "WhatsApp +995 593 22 22 28",
+        )}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.967-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+        </svg>
+        <span className="wa-fab-num">+995 593 22 22 28</span>
+      </a>
       <section id="s-hero">
         <div className="h-bg" />
         <div className="h-ov" />
@@ -187,9 +217,9 @@ export default function Home() {
           <div className="f-mid">
             <p className="f-desc">
               {t(
-                "PIAZZA Residence — პრემიუმ კლასის საცხოვრებელი კომპლექსი, რომელიც აერთიანებს თანამედროვე არქიტექტურას და 119 წლის კულტურული მემკვიდრეობის შენობას ბათუმის ისტორიულ ცენტრში.",
-                "PIAZZA Residence is a premium residential complex combining modern architecture with a 119-year-old cultural heritage building in Batumi's historic center.",
-                "PIAZZA Residence — премиальный жилой комплекс, объединяющий современную архитектуру и 119-летнее здание культурного наследия в историческом центре Батуми.",
+                "PIAZZA Residence — MOVE Development-ისა და Tower Group-ის კოლაბორაციით შექმნილი პრემიუმ კლასის საცხოვრებელი კომპლექსი ბათუმის ისტორიულ ცენტრში, სადაც თანამედროვე არქიტექტურა 119 წლის კულტურული მემკვიდრეობის შენობას ერწყმის.",
+                "PIAZZA Residence — a premium-class residential complex created in collaboration between MOVE Development and Tower Group, located in the historic center of Batumi, where modern architecture blends with a 119-year-old cultural heritage building.",
+                "PIAZZA Residence — премиальный жилой комплекс, созданный в сотрудничестве MOVE Development и Tower Group, расположенный в историческом центре Батуми, где современная архитектура сочетается со 119-летним зданием культурного наследия.",
               )}
             </p>
           </div>
@@ -1044,6 +1074,36 @@ export default function Home() {
               <div className="tl-dot" />
               <div className="tl-lbl">{t("ჩაბარება", "Handover", "Сдача")}</div>
               <div className="tl-yr">2028</div>
+            </div>
+          </div>
+        </div>
+        <div className="pn-section">
+          <div className="pn-hdr">
+            <div className="pn-ey">
+              <span>{t("პარტნიორები", "Partners", "Партнёры")}</span>
+            </div>
+            <h2 className="pn-h2">
+              {t("ჩვენი", "Our", "Наши")}
+              <br />
+              {t("პარტნიორები", "partners", "партнёры")}
+            </h2>
+            <p className="pn-sub">
+              {t(
+                "სანდო ბრენდები, რომლებიც PIAZZA Residence-ის უმაღლეს ხარისხს უზრუნველყოფენ",
+                "Trusted brands ensuring the highest quality of PIAZZA Residence",
+                "Надёжные бренды, обеспечивающие высокое качество PIAZZA Residence",
+              )}
+            </p>
+          </div>
+          <div className="pn-grid">
+            <div className="pn-item">
+              <img alt="Zeta" src="/assets/images/zetashi.PNG" />
+            </div>
+            <div className="pn-item">
+              <img alt="Doka" src="/assets/images/doka.JPG.jpeg" />
+            </div>
+            <div className="pn-item">
+              <img alt="Sika" src="/assets/images/sika.PNG" />
             </div>
           </div>
         </div>
