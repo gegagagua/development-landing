@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { scrollToId } from "@/lib/smooth-scroll";
 
 type Locale = "ka" | "en" | "ru";
 
@@ -230,8 +231,8 @@ export function LandingInteractivity({ locale }: { locale: Locale }) {
         (e) => {
           e.preventDefault();
           const href = a.getAttribute("href");
-          const t = href ? document.querySelector(href) : null;
-          if (t) t.scrollIntoView({ behavior: "smooth" });
+          const id = href?.startsWith("#") ? href.slice(1) : null;
+          if (id) scrollToId(id, -64);
           closeNavMenu();
         },
         { signal },

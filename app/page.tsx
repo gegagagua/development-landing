@@ -2,6 +2,7 @@
 
 import { ContactForm } from "@/components/ContactForm";
 import { LandingInteractivity } from "@/components/LandingInteractivity";
+import { scrollToId } from "@/lib/smooth-scroll";
 import { useEffect, useState } from "react";
 
 type Locale = "ka" | "en" | "ru";
@@ -30,7 +31,7 @@ export default function Home() {
   };
 
   const scrollToSection = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    scrollToId(id, -64);
   };
 
   return (
@@ -1096,13 +1097,16 @@ export default function Home() {
             </p>
           </div>
           <div className="pn-grid">
-            <div className="pn-item">
+            <div className="pn-item pn-item--tbc">
+              <img alt="TBC" src="/assets/images/tbc.svg" />
+            </div>
+            <div className="pn-item pn-item--zeta">
               <img alt="Zeta" src="/assets/images/zetashi.PNG" />
             </div>
-            <div className="pn-item">
+            <div className="pn-item pn-item--doka">
               <img alt="Doka" src="/assets/images/doka.JPG.jpeg" />
             </div>
-            <div className="pn-item">
+            <div className="pn-item pn-item--sika">
               <img alt="Sika" src="/assets/images/sika.PNG" />
             </div>
           </div>
