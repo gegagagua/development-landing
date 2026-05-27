@@ -14,16 +14,16 @@ export function SmoothScroll() {
     if (prefersReducedMotion) return;
 
     const lenis = new Lenis({
-      lerp: 0.07,
+      lerp: 0.13,
       smoothWheel: true,
       syncTouch: true,
-      syncTouchLerp: 0.075,
-      wheelMultiplier: 0.85,
-      touchMultiplier: 1.1,
+      syncTouchLerp: 0.12,
+      wheelMultiplier: 1.2,
+      touchMultiplier: 1.55,
       anchors: {
         offset: -64,
-        duration: 1.6,
-        easing: (t: number) => 1 - Math.pow(1 - t, 4),
+        duration: 0.9,
+        easing: (t: number) => 1 - Math.pow(1 - t, 3),
       },
     });
 

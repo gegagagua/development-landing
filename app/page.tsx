@@ -2,6 +2,7 @@
 
 import { ContactForm } from "@/components/ContactForm";
 import { LandingInteractivity } from "@/components/LandingInteractivity";
+import type { PlanKey } from "@/lib/plans";
 import { scrollToId } from "@/lib/smooth-scroll";
 import { useEffect, useState } from "react";
 
@@ -30,8 +31,19 @@ export default function Home() {
     return ka;
   };
 
+  const [bookedPlan, setBookedPlan] = useState<PlanKey | null>(null);
+
   const scrollToSection = (id: string) => {
     scrollToId(id, -64);
+  };
+
+  const handleBookPlan = (plan: PlanKey) => {
+    setBookedPlan(plan);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        scrollToId("s-book", -80);
+      });
+    });
   };
 
   return (
@@ -122,7 +134,7 @@ export default function Home() {
           <button
             type="button"
             className="nav-cta"
-            onClick={() => scrollToSection("s-contact")}
+            onClick={() => scrollToId("s-book", -80)}
           >
             {t("მოითხოვე ზარი", "Request a call", "Заказать звонок")}
           </button>
@@ -197,7 +209,7 @@ export default function Home() {
           <button
             type="button"
             className="btn btn-o"
-            onClick={() => scrollToSection("s-contact")}
+            onClick={() => scrollToId("s-book", -80)}
           >
             {t("დაგვიკავშირდით", "Contact us", "Связаться с нами")}
           </button>
@@ -264,7 +276,13 @@ export default function Home() {
           </div>
         </div>
         <div className="f-right">
-          <img alt="Piazza Residence" src="/assets/images/dziritadi.jpeg" />
+          <img
+            alt="Piazza Residence"
+            src="/assets/images/dziritadi.jpeg"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
           <div className="f-ov" />
           <div className="f-lbl">
             <div className="f-lbl-p">
@@ -395,6 +413,8 @@ export default function Home() {
           <img
             alt="Piazza Residence Courtyard"
             src="/assets/images/progress-courtyard.jpg"
+            loading="lazy"
+            decoding="async"
           />
           <div className="p-ov" />
         </div>
@@ -425,8 +445,8 @@ export default function Home() {
                   "Вход · вечерняя подсветка",
                 )}
                 src="/assets/images/new2.jpeg"
-                loading="eager"
-                fetchPriority="high"
+                loading="lazy"
+                decoding="async"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
@@ -445,6 +465,7 @@ export default function Home() {
                 )}
                 src="/assets/images/2.jpeg"
                 loading="lazy"
+                decoding="async"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
@@ -457,6 +478,7 @@ export default function Home() {
                 alt={t("ეზო · ფასადი", "Courtyard · facade", "Двор · фасад")}
                 src="/assets/images/new4.jpeg"
                 loading="lazy"
+                decoding="async"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
@@ -471,6 +493,7 @@ export default function Home() {
                 alt="Piazza Residence"
                 src="/assets/images/5.jpeg"
                 loading="lazy"
+                decoding="async"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
@@ -483,6 +506,7 @@ export default function Home() {
                 alt="Piazza Residence"
                 src="/assets/images/6.jpeg"
                 loading="lazy"
+                decoding="async"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
@@ -495,6 +519,7 @@ export default function Home() {
                 alt="Piazza Residence"
                 src="/assets/images/7.jpeg"
                 loading="lazy"
+                decoding="async"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
@@ -507,6 +532,7 @@ export default function Home() {
                 alt="Piazza Residence"
                 src="/assets/images/4.jpeg"
                 loading="lazy"
+                decoding="async"
               />
               <div className="g-img-ov" />
               <div className="g-img-lbl">
@@ -573,6 +599,17 @@ export default function Home() {
           <div className="pl-tab active" data-plan="three">
             {t("სამსაძინებლიანი", "Three-bedroom", "С тремя спальнями")}
           </div>
+          <button
+            type="button"
+            className="pl-tab-book"
+            onClick={() => {
+              const active = document.querySelector<HTMLElement>(".pl-tab.active");
+              const key = (active?.dataset.plan as PlanKey | undefined) ?? "studio";
+              handleBookPlan(key);
+            }}
+          >
+            {t("დაჯავშნა", "Book", "Забронировать")}
+          </button>
         </div>
         <div className="pl-main">
           <div className="pl-table">
@@ -651,26 +688,75 @@ export default function Home() {
                 <div className="pl-thc">{t("ტიპი", "Type", "Тип")}</div>
                 <div className="pl-thc">{t("ფართი", "Area", "Площадь")}</div>
                 <div className="pl-thc">{t("ფასი", "Price", "Цена")}</div>
+                <div className="pl-thc pl-thc--act">{t("მოქმედება", "Action", "Действие")}</div>
               </div>
               <div className="pl-row" data-plan="studio">
                 <div className="pl-td n">{t("სტუდიო", "Studio", "Студия")}</div>
                 <div className="pl-td">{t("35.7 – 49.7 მ²", "35.7 – 49.7 m²", "35.7 – 49.7 м²")}</div>
                 <div className="pl-td n">{t("$100,435-დან", "from $100,435", "от $100,435")}</div>
+                <div className="pl-td pl-td--act">
+                  <button
+                    type="button"
+                    className="pl-book"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleBookPlan("studio");
+                    }}
+                  >
+                    {t("დაჯავშნა", "Book", "Забронировать")}
+                  </button>
+                </div>
               </div>
               <div className="pl-row" data-plan="one">
                 <div className="pl-td n">{t("ერთსაძინებლიანი", "One-bedroom", "С одной спальней")}</div>
                 <div className="pl-td">{t("47.5 – 59.5 მ²", "47.5 – 59.5 m²", "47.5 – 59.5 м²")}</div>
                 <div className="pl-td n">{t("$142,080-დან", "from $142,080", "от $142,080")}</div>
+                <div className="pl-td pl-td--act">
+                  <button
+                    type="button"
+                    className="pl-book"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleBookPlan("one");
+                    }}
+                  >
+                    {t("დაჯავშნა", "Book", "Забронировать")}
+                  </button>
+                </div>
               </div>
               <div className="pl-row" data-plan="two">
                 <div className="pl-td n">{t("ორსაძინებლიანი", "Two-bedroom", "С двумя спальнями")}</div>
                 <div className="pl-td">{t("60.2 – 118.7 მ²", "60.2 – 118.7 m²", "60.2 – 118.7 м²")}</div>
                 <div className="pl-td n">{t("$166,260-დან", "from $166,260", "от $166,260")}</div>
+                <div className="pl-td pl-td--act">
+                  <button
+                    type="button"
+                    className="pl-book"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleBookPlan("two");
+                    }}
+                  >
+                    {t("დაჯავშნა", "Book", "Забронировать")}
+                  </button>
+                </div>
               </div>
               <div className="pl-row active" data-plan="three">
                 <div className="pl-td n">{t("სამსაძინებლიანი", "Three-bedroom", "С тремя спальнями")}</div>
                 <div className="pl-td">{t("134.0 – 143.3 მ²", "134.0 – 143.3 m²", "134.0 – 143.3 м²")}</div>
                 <div className="pl-td n">{t("$365,415-დან", "from $365,415", "от $365,415")}</div>
+                <div className="pl-td pl-td--act">
+                  <button
+                    type="button"
+                    className="pl-book"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleBookPlan("three");
+                    }}
+                  >
+                    {t("დაჯავშნა", "Book", "Забронировать")}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -684,6 +770,8 @@ export default function Home() {
                 className="pl-floorplan-img"
                 id="pl-plan-img"
                 src="/assets/images/floorplan.png"
+                loading="lazy"
+                decoding="async"
               />
               <svg
                 className="pl-svg-ov"
@@ -1098,16 +1186,31 @@ export default function Home() {
           </div>
           <div className="pn-grid">
             <div className="pn-item pn-item--tbc">
-              <img alt="TBC" src="/assets/images/tbc.svg" />
+              <img alt="TBC" src="/assets/images/tbc.svg" loading="lazy" decoding="async" />
             </div>
             <div className="pn-item pn-item--zeta">
-              <img alt="Zeta" src="/assets/images/zetashi.PNG" />
+              <img
+                alt="Zeta"
+                src="/assets/images/zetashi.PNG"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div className="pn-item pn-item--doka">
-              <img alt="Doka" src="/assets/images/doka.JPG.jpeg" />
+              <img
+                alt="Doka"
+                src="/assets/images/doka.JPG.jpeg"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
             <div className="pn-item pn-item--sika">
-              <img alt="Sika" src="/assets/images/sika.PNG" />
+              <img
+                alt="Sika"
+                src="/assets/images/sika.PNG"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           </div>
         </div>
@@ -1190,8 +1293,12 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="con-col">
-            <ContactForm locale={locale} />
+          <div className="con-col" id="s-book">
+            <ContactForm
+              locale={locale}
+              bookedPlan={bookedPlan}
+              onClearBooking={() => setBookedPlan(null)}
+            />
           </div>
         </div>
       </section>

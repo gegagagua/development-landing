@@ -2,6 +2,7 @@
 
 import { FormEvent, useRef, useState } from "react";
 import { z } from "zod";
+import { getPlanCopy, type PlanKey } from "@/lib/plans";
 import { WEB3FORMS_ACCESS_KEY } from "@/lib/web3forms";
 
 type Locale = "ka" | "en" | "ru";
@@ -37,6 +38,14 @@ const copy = {
       phone: "ტელეფონი",
       email: "ელ. ფოსტა",
       subject: "Piazza Residence — კონტაქტის ფორმა",
+      bookingSubject: "Piazza Residence — დაჯავშნის მოთხოვნა",
+      plan: "არჩეული გეგმარება",
+      area: "ფართი",
+      price: "ფასი",
+    },
+    booking: {
+      label: "არჩეული გეგმარება",
+      clear: "გასუფთავება",
     },
   },
   en: {
@@ -68,6 +77,14 @@ const copy = {
       phone: "Phone",
       email: "Email",
       subject: "Piazza Residence — Contact Form",
+      bookingSubject: "Piazza Residence — Booking Request",
+      plan: "Selected layout",
+      area: "Area",
+      price: "Price",
+    },
+    booking: {
+      label: "Selected layout",
+      clear: "Clear",
     },
   },
   ru: {
@@ -99,6 +116,14 @@ const copy = {
       phone: "Телефон",
       email: "Email",
       subject: "Piazza Residence — Контактная форма",
+      bookingSubject: "Piazza Residence — Запрос на бронь",
+      plan: "Выбранная планировка",
+      area: "Площадь",
+      price: "Цена",
+    },
+    booking: {
+      label: "Выбранная планировка",
+      clear: "Очистить",
     },
   },
 } as const;
@@ -167,12 +192,21 @@ function computeFieldMessages(
   return out;
 }
 
-export function ContactForm({ locale }: { locale: Locale }) {
+export function ContactForm({
+  locale,
+  bookedPlan,
+  onClearBooking,
+}: {
+  locale: Locale;
+  bookedPlan?: PlanKey | null;
+  onClearBooking?: () => void;
+}) {
   const [status, setStatus] = useState<Status>("idle");
   const [fieldErrors, setFieldErrors] = useState<Partial<Record<FieldKey, string>>>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
   const validationActiveRef = useRef(false);
   const t = copy[locale];
+  const plan = bookedPlan ? getPlanCopy(bookedPlan, locale) : null;
 
   function clearFieldError(key: FieldKey) {
     setFieldErrors((prev) => {
@@ -214,16 +248,29 @@ export function ContactForm({ locale }: { locale: Locale }) {
     validationActiveRef.current = false;
     setFieldErrors({});
 
-    const lines = [
+    const lines: string[] = [];
+    if (plan) {
+      lines.push(
+        `${t.submit.plan}: ${plan.type}`,
+        `${t.submit.area}: ${plan.area}`,
+        `${t.submit.price}: ${plan.price}`,
+        "",
+      );
+    }
+    lines.push(
       `${t.submit.phone}: ${phone}`,
       `${t.submit.email}: ${email}`,
       "",
       message,
-    ];
+    );
+
+    const subject = plan
+      ? `${t.submit.bookingSubject}: ${plan.type}`
+      : t.submit.subject;
 
     const submitBody = new FormData();
     submitBody.append("access_key", WEB3FORMS_ACCESS_KEY);
-    submitBody.append("subject", t.submit.subject);
+    submitBody.append("subject", subject);
     submitBody.append("name", name);
     submitBody.append("email", email);
     submitBody.append("message", lines.join("\n"));
@@ -321,6 +368,29 @@ export function ContactForm({ locale }: { locale: Locale }) {
           <span>Instagram</span>
         </a>
       </div>
+      {plan ? (
+        <div className="con-booked" role="status" aria-live="polite">
+          <div className="con-booked-info">
+            <div className="con-booked-lbl">{t.booking.label}</div>
+            <div className="con-booked-val">
+              <span className="con-booked-type">{plan.type}</span>
+              <span className="con-booked-meta">
+                {plan.area} · {plan.price}
+              </span>
+            </div>
+          </div>
+          {onClearBooking ? (
+            <button
+              type="button"
+              className="con-booked-clear"
+              onClick={onClearBooking}
+              aria-label={t.booking.clear}
+            >
+              ×
+            </button>
+          ) : null}
+        </div>
+      ) : null}
       <form className="con-form" onSubmit={onSubmit} noValidate>
         <div className="con-field-wrap">
           <input
