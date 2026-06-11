@@ -1212,6 +1212,62 @@ export default function Home() {
                 decoding="async"
               />
             </div>
+            <div className="pn-item pn-item--gulf">
+              <img
+                alt="Gulf News"
+                src="/assets/images/gulf.jpeg"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div className="pn-item pn-item--arch">
+              <img
+                alt="ArchDaily"
+                src="/assets/images/arch.jpeg"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div className="pn-item pn-item--worldarch">
+              <img
+                alt="World Architecture Festival"
+                src="/assets/images/worldarch.jpeg"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div className="pn-item pn-item--adesign">
+              <img
+                alt="A' Design Award"
+                src="/assets/images/adesign.jpeg"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div className="pn-item pn-item--iconic">
+              <img
+                alt="Iconic Awards"
+                src="/assets/images/iconic.jpeg"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div className="pn-item pn-item--luxury">
+              <img
+                alt="Luxury Lifestyle Awards"
+                src="/assets/images/luxury.jpeg"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div className="pn-item pn-item--afc">
+              <img
+                alt="ADC"
+                src="/assets/images/afc.jpeg"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
           </div>
         </div>
         <div className="fc-section">
