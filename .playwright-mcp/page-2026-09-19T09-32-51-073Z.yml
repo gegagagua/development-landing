@@ -1,0 +1,288 @@
+- generic [ref=f3e1]:
+  - generic [ref=f3e6] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=f3e7]
+    - generic [ref=f3e11]:
+      - button "Open issues overlay" [ref=f3e12]:
+        - generic [ref=f3e13]:
+          - generic [aria-hidden] [ref=f3e14]: "0"
+          - generic [ref=f3e15]: "1"
+        - generic [ref=f3e16]: Issue
+      - button "Collapse issues badge" [ref=f3e17]
+  - navigation [ref=f3e20]:
+    - generic [ref=f3e30]:
+      - link "Live camera" [ref=f3e31] [cursor=pointer]:
+        - /url: https://rtsp.me/embed/HR36KsYH/
+        - generic [ref=f3e32]: LIVE
+      - button "Request a call" [ref=f3e33] [cursor=pointer]
+    - generic [ref=f3e34] [cursor=pointer]
+  - link "WhatsApp +995 593 22 22 28" [ref=f3e38] [cursor=pointer]:
+    - /url: https://wa.me/995593222228
+  - generic [ref=f3e41]:
+    - generic [ref=f3e44]: MOVE DEVELOPMENT presents
+    - heading "Piazza Residence" [level=1] [ref=f3e47]
+    - paragraph [ref=f3e48]: Premium residential complex in the historic center of Batumi
+    - generic [ref=f3e49]:
+      - button "Learn more" [ref=f3e50] [cursor=pointer]
+      - button "Contact us" [ref=f3e51] [cursor=pointer]
+  - generic [ref=f3e52]:
+    - generic [ref=f3e53]:
+      - generic [ref=f3e54]:
+        - generic [ref=f3e55]: About the project
+        - heading "Key features" [level=2] [ref=f3e57]: Keyfeatures
+      - paragraph [ref=f3e59]: PIAZZA Residence — a premium-class residential complex created in collaboration between MOVE Development and Tower Group, located in the historic center of Batumi, where modern architecture blends with a 119-year-old cultural heritage building.
+      - generic [ref=f3e61]:
+        - generic [ref=f3e62]:
+          - generic [ref=f3e63]: "25"
+          - generic [ref=f3e64]: Floors
+          - generic [ref=f3e65]: In Batumi's historic center
+        - generic [ref=f3e66]:
+          - generic [ref=f3e67]: "375"
+          - generic [ref=f3e68]: Apartments
+          - generic [ref=f3e69]: From studio to 3-bedroom
+        - generic [ref=f3e70]:
+          - generic [ref=f3e71]: 75M
+          - generic [ref=f3e72]: Million USD
+          - generic [ref=f3e73]: International standard
+      - generic [ref=f3e74]: Architecture that remains
+    - generic [ref=f3e76]:
+      - img "Piazza Residence" [ref=f3e77]
+      - generic:
+        - generic: PiazzaResidence
+        - generic: BatumiGeorgia
+  - generic [ref=f3e78]: MOVE Development · Piazza Residence · Batumi, 2028
+  - generic [ref=f3e82]:
+    - generic [ref=f3e83]:
+      - generic [ref=f3e84]: MOVE Development · Piazza Residence
+      - heading "Project Overview" [level=2] [ref=f3e86]: ProjectOverview
+      - paragraph [ref=f3e87]: Architecture, comfort, and history in one place
+      - generic [ref=f3e88]:
+        - generic [ref=f3e89]:
+          - generic [ref=f3e90]: "01"
+          - generic [ref=f3e91]: 119-year cultural monument restored and integrated
+        - generic [ref=f3e92]:
+          - generic [ref=f3e93]: "02"
+          - generic [ref=f3e94]: Private piazza with Venetian fountains
+        - generic [ref=f3e95]:
+          - generic [ref=f3e96]: "03"
+          - generic [ref=f3e97]: 13-meter colonnades and natural stone facade
+        - generic [ref=f3e98]:
+          - generic [ref=f3e99]: "04"
+          - generic [ref=f3e100]: High-ceiling, bright, and functional interiors
+        - generic [ref=f3e101]:
+          - generic [ref=f3e102]: "05"
+          - generic [ref=f3e103]: Sea, mountain, and city views; every apartment has a balcony
+        - generic [ref=f3e104]:
+          - generic [ref=f3e105]: "06"
+          - generic [ref=f3e106]: Concierge service, 24/7 security, and video surveillance
+        - generic [ref=f3e107]:
+          - generic [ref=f3e108]: "07"
+          - generic [ref=f3e109]: Property management and rental service
+        - generic [ref=f3e110]:
+          - generic [ref=f3e111]: "08"
+          - generic [ref=f3e112]: Full financing by TBC Bank
+    - img "Piazza Residence Courtyard" [ref=f3e114]
+  - generic [ref=f3e116]:
+    - generic [ref=f3e117]:
+      - generic [ref=f3e118]:
+        - generic [ref=f3e119]: Piazza Residence · Batumi
+        - heading "Gallery" [level=2] [ref=f3e121]
+      - generic [ref=f3e122]: 07 images
+    - generic [ref=f3e124]:
+      - generic [ref=f3e125] [cursor=pointer]:
+        - img "Entrance · evening lighting" [ref=f3e126]
+        - generic [ref=f3e128]:
+          - generic [ref=f3e129]: Entrance · evening
+          - generic [ref=f3e130]: "01"
+      - generic [ref=f3e131] [cursor=pointer]:
+        - img "PIAZZA Residence · top view" [ref=f3e132]
+        - generic [ref=f3e134]:
+          - generic [ref=f3e135]: Full view
+          - generic [ref=f3e136]: "02"
+      - generic [ref=f3e137] [cursor=pointer]:
+        - img "Courtyard · facade" [ref=f3e138]
+        - generic [ref=f3e140]:
+          - generic [ref=f3e141]: Courtyard · space
+          - generic [ref=f3e142]: "03"
+      - generic [ref=f3e143] [cursor=pointer]:
+        - img "Piazza Residence" [ref=f3e144]
+        - generic [ref=f3e146]:
+          - generic [ref=f3e147]: PIAZZA Residence
+          - generic [ref=f3e148]: "04"
+      - generic [ref=f3e149] [cursor=pointer]:
+        - img "Piazza Residence" [ref=f3e150]
+        - generic [ref=f3e152]:
+          - generic [ref=f3e153]: PIAZZA Residence
+          - generic [ref=f3e154]: "05"
+      - generic [ref=f3e155] [cursor=pointer]:
+        - img "Piazza Residence" [ref=f3e156]
+        - generic [ref=f3e158]:
+          - generic [ref=f3e159]: PIAZZA Residence
+          - generic [ref=f3e160]: "06"
+      - generic [ref=f3e161] [cursor=pointer]:
+        - img "Piazza Residence" [ref=f3e162]
+        - generic [ref=f3e164]:
+          - generic [ref=f3e165]: PIAZZA Residence
+          - generic [ref=f3e166]: "07"
+    - generic [ref=f3e167]:
+      - generic [ref=f3e168]: Architecture that remains
+      - generic [ref=f3e170]: Batumi · Georgia · 2028
+  - generic [ref=f3e171]:
+    - generic [ref=f3e172]:
+      - generic [ref=f3e173]:
+        - generic [ref=f3e174]: Piazza Residence · Batumi
+        - heading "Layouts" [level=2] [ref=f3e176]
+      - paragraph [ref=f3e177]: Choose your space
+    - generic [ref=f3e178]:
+      - generic [ref=f3e179] [cursor=pointer]: Studio
+      - generic [ref=f3e180] [cursor=pointer]: One-bedroom
+      - generic [ref=f3e181] [cursor=pointer]: Two-bedroom
+      - generic [ref=f3e182] [cursor=pointer]: Three-bedroom
+      - button "Book" [ref=f3e183] [cursor=pointer]
+    - generic [ref=f3e184]:
+      - generic [ref=f3e185]:
+        - generic [ref=f3e186]:
+          - generic [ref=f3e187]:
+            - generic [ref=f3e188]: Type
+            - generic [ref=f3e189]: Three-bedroom
+          - generic [ref=f3e190]:
+            - generic [ref=f3e191]: Area
+            - generic [ref=f3e192]: 134.0 – 143.3 m²
+          - generic [ref=f3e193]:
+            - generic [ref=f3e194]: Price
+            - generic [ref=f3e195]: from $365,415
+        - generic [ref=f3e196]:
+          - generic [ref=f3e197]: Studio
+          - generic [ref=f3e200]: 1 bedroom
+          - generic [ref=f3e203]: 2 bedrooms
+          - generic [ref=f3e206]: 3 bedrooms
+      - generic [ref=f3e210]:
+        - img "Floor plan"
+        - generic [ref=f3e211]: Full floor plan
+        - generic [ref=f3e214]: Three-bedroom
+    - generic [ref=f3e216]: Architecture that remains
+  - generic [ref=f3e218]:
+    - generic [ref=f3e219]:
+      - generic [ref=f3e220]:
+        - generic [ref=f3e221]: Piazza Residence · Batumi
+        - heading "Location" [level=2] [ref=f3e223]
+      - paragraph [ref=f3e224]: In the historic center of Batumi —where everything is within reach
+    - generic [ref=f3e225]:
+      - iframe [ref=f3e226]
+      - link "Open map ↗" [ref=f3e227] [cursor=pointer]:
+        - /url: https://www.google.com/maps/search/?api=1&query=41.64005,41.63485
+      - generic: Piazza Residence · 59 Vakhtang Gorgasali
+    - generic [ref=f3e228]:
+      - generic [ref=f3e229]:
+        - generic [ref=f3e230]: To sea
+        - generic [ref=f3e231]: 300 m
+        - generic [ref=f3e232]: 4 min walk
+      - generic [ref=f3e233]:
+        - generic [ref=f3e234]: To boulevard
+        - generic [ref=f3e235]: 5 min
+        - generic [ref=f3e236]: walk
+      - generic [ref=f3e237]:
+        - generic [ref=f3e238]: To airport
+        - generic [ref=f3e239]: 15 min
+        - generic [ref=f3e240]: by car
+      - generic [ref=f3e241]:
+        - generic [ref=f3e242]: Historic center
+        - generic [ref=f3e243]: 0 km
+        - generic [ref=f3e244]: right in the center
+    - generic [ref=f3e245]:
+      - generic [ref=f3e246]:
+        - generic [ref=f3e247]: Address
+        - generic [ref=f3e248]: 59 Vakhtang Gorgasali St.Batumi, Georgia
+      - generic [ref=f3e249]: Architecture that remains
+  - generic [ref=f3e251]:
+    - generic [ref=f3e252]:
+      - generic [ref=f3e253]:
+        - generic [ref=f3e254]: Piazza Residence · Construction status
+        - heading "Progress & Updates" [level=2] [ref=f3e256]
+        - paragraph [ref=f3e257]: Current construction status
+      - generic [ref=f3e258]:
+        - generic [ref=f3e261]:
+          - generic [ref=f3e263]: Foundation
+          - generic [ref=f3e264]: "2025"
+        - generic [ref=f3e265]:
+          - generic [ref=f3e267]: Construction
+          - generic [ref=f3e268]: "2026"
+        - generic [ref=f3e269]:
+          - generic [ref=f3e271]: Facade
+          - generic [ref=f3e272]: "2027"
+        - generic [ref=f3e273]:
+          - generic [ref=f3e275]: Handover
+          - generic [ref=f3e276]: "2028"
+    - generic [ref=f3e277]:
+      - generic [ref=f3e278]:
+        - generic [ref=f3e279]: Partners
+        - heading "Our partners" [level=2] [ref=f3e281]: Ourpartners
+        - paragraph [ref=f3e282]: Trusted brands ensuring the highest quality of PIAZZA Residence
+      - generic [ref=f3e283]:
+        - generic [ref=f3e284]:
+          - img "TBC"
+        - generic [ref=f3e285]:
+          - img "Zeta"
+        - generic [ref=f3e286]:
+          - img "Doka"
+        - generic [ref=f3e287]:
+          - img "Sika"
+        - generic [ref=f3e288]:
+          - img "Gulf News"
+        - generic [ref=f3e289]:
+          - img "ArchDaily"
+        - generic [ref=f3e290]:
+          - img "World Architecture Festival"
+        - generic [ref=f3e291]:
+          - img "A' Design Award"
+        - generic [ref=f3e292]:
+          - img "Iconic Awards"
+        - generic [ref=f3e293]:
+          - img "Luxury Lifestyle Awards"
+        - generic [ref=f3e294]:
+          - img "ADC"
+    - generic [ref=f3e295]:
+      - generic [ref=f3e296]:
+        - generic [ref=f3e297]: FAQ
+        - heading "Frequently asked questions" [level=2] [ref=f3e299]: Frequently askedquestions
+        - paragraph [ref=f3e300]: Have a question? Answers below.
+        - generic [ref=f3e301]:
+          - generic [ref=f3e302]:
+            - generic [ref=f3e303] [cursor=pointer]:
+              - generic [ref=f3e304]: When will the complex be completed?
+              - generic [ref=f3e305]: +
+            - generic: Construction of Piazza Residence will be completed by the end of 2028. Foundation work is currently in progress.
+          - generic [ref=f3e307]:
+            - generic [ref=f3e308] [cursor=pointer]:
+              - generic [ref=f3e309]: What apartment types are available?
+              - generic [ref=f3e310]: +
+            - generic: The complex offers apartments from studios to 3-bedroom units. In total, 375 apartments across 25 floors.
+          - generic [ref=f3e312]:
+            - generic [ref=f3e313] [cursor=pointer]:
+              - generic [ref=f3e314]: What are the payment terms?
+              - generic [ref=f3e315]: +
+            - generic: Piazza Residence offers flexible payment terms. Contact us for detailed information.
+      - generic [ref=f3e317]:
+        - heading "Contact Us" [level=2] [ref=f3e318]
+        - generic [ref=f3e319]:
+          - link "593 22 22 28" [ref=f3e320] [cursor=pointer]:
+            - /url: tel:+995593222228
+          - link "Facebook" [ref=f3e324] [cursor=pointer]:
+            - /url: https://www.facebook.com/profile.php?id=61589174859876
+          - link "Instagram" [ref=f3e328] [cursor=pointer]:
+            - /url: https://www.instagram.com/move.development/
+        - generic [ref=f3e333]:
+          - textbox "Name *" [ref=f3e335]
+          - textbox "Phone *" [ref=f3e337]
+          - textbox "Email *" [ref=f3e339]
+          - textbox "Message *" [ref=f3e341]
+          - button "Send" [ref=f3e342] [cursor=pointer]
+  - contentinfo [ref=f3e343]:
+    - generic [ref=f3e353]: © 2026 MOVE Development. All rights reserved.
+    - generic [ref=f3e354]:
+      - link "593 22 22 28" [ref=f3e355] [cursor=pointer]:
+        - /url: tel:+995593222228
+      - link "Facebook" [ref=f3e356] [cursor=pointer]:
+        - /url: https://www.facebook.com/profile.php?id=61589174859876
+      - link "Instagram" [ref=f3e357] [cursor=pointer]:
+        - /url: https://www.instagram.com/move.development/
+  - alert [ref=f3e358]

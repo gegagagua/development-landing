@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SmoothScroll } from "@/components/SmoothScroll";
 import { StructuredData } from "@/components/StructuredData";
+import { MetaPixel } from "@/components/MetaPixel";
 import { buildSiteMetadata } from "@/lib/site-config";
 import "./globals.css";
 
@@ -38,6 +39,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">
+        <MetaPixel />
         <SmoothScroll />
         <StructuredData />
         {children}
